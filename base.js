@@ -1,11 +1,26 @@
 const typescriptEslintRecommended = require('@typescript-eslint/eslint-plugin').configs.recommended;
 const typescriptImports = require('eslint-plugin-import').configs.typescript;
-const prettierTypescriptOverrides = require('eslint-config-prettier/@typescript-eslint');
+
+const noRestrictedImportsBaseConfig = {
+  paths: [
+    {
+      name: 'lodash',
+      message:
+        "Please import only needed functions (e.g. import helper from 'lodash/helper') instead to minimize final bundle size."
+    },
+    {
+      name: 'date-fns',
+      message:
+        "Please import only needed functions (e.g. import func from 'date-fns/func') instead to minimize final bundle size."
+    }
+  ]
+};
 
 module.exports = {
-  extends: ['airbnb-base', 'prettier'],
+  extends: ['airbnb-base', 'plugin:prettier/recommended'],
   plugins: ['prettier'],
   rules: {
+    'arrow-body-style': ['error', 'as-needed', { requireReturnForObjectLiteral: false }],
     'operator-linebreak': ['error', 'after', { overrides: { '?': 'ignore', ':': 'ignore' } }],
     'comma-dangle': ['error', 'never'],
     'arrow-parens': ['error', 'as-needed'],
@@ -30,13 +45,14 @@ module.exports = {
         singleQuote: true,
         printWidth: 120,
         arrowParens: 'avoid',
-        trailingComma: 'none'
+        trailingComma: 'none',
+        endOfLine: 'auto'
       }
     ],
     'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
     'import/prefer-default-export': 'off',
     'import/no-named-as-default': 'off',
-    complexity: ['error', 11],
+    complexity: ['error', 20],
     'handle-callback-err': 'error',
     'class-methods-use-this': 'off',
     'import/order': [
@@ -63,13 +79,13 @@ module.exports = {
         message: '`with` is disallowed in strict mode because it makes code impossible to predict and optimize.'
       }
     ],
-    'no-plusplus': 'off',
-    'no-async-promise-executor': 'warn'
+    'no-restricted-imports': ['error', noRestrictedImportsBaseConfig],
+    'no-plusplus': 'off'
   },
-  parser: 'babel-eslint',
+  parser: '@babel/eslint-parser',
   parserOptions: {
     sourceType: 'module',
-    ecmaVersion: 8,
+    ecmaVersion: 11,
     ecmaFeatures: {
       experimentalObjectRestSpread: true
     }
@@ -86,16 +102,37 @@ module.exports = {
       files: ['**/*.ts', '**/*.tsx'],
       parser: '@typescript-eslint/parser',
       parserOptions: {
+        project: './tsconfig.json', // this works if you have tsconfig.json at the base of your project, but you'll have to override else
         ecmaVersion: 2020,
-        ecmaFeatures: {
-          jsx: true
-        },
-        warnOnUnsupportedTypeScriptVersion: false
+        sourceType: 'module',
+        warnOnUnsupportedTypeScriptVersion: true
       },
       plugins: ['@typescript-eslint'],
       ...typescriptImports,
-      rules: Object.assign(typescriptEslintRecommended.rules, prettierTypescriptOverrides.rules, {
+      rules: Object.assign(typescriptEslintRecommended.rules, {
         'no-empty-function': 'off',
+        'no-undef': 'off',
+        'no-restricted-imports': [
+          'error',
+          {
+            paths: [
+              ...noRestrictedImportsBaseConfig.paths,
+              // currently we can't use this path, because it overrides base config path for lodash
+              // this import is still disallowed since we restricted imports from root for lodash
+              // probably can be uncommented after https://github.com/eslint/eslint/issues/14220
+              // {
+              //   'name': 'lodash',
+              //   'importNames': ['get'],
+              //   'message': 'Please use optional chaining instead.'
+              // },
+              {
+                name: 'lodash/get',
+                importNames: ['default'],
+                message: 'Please use optional chaining instead.'
+              }
+            ]
+          }
+        ],
         '@typescript-eslint/naming-convention': [
           'error',
           {
@@ -106,7 +143,6 @@ module.exports = {
           {
             selector: 'typeParameter',
             format: ['PascalCase'],
-            // this allows for just `T`, which is common in generics
             custom: {
               regex: '^T([A-Z][a-z]*)*$',
               match: true
@@ -138,6 +174,7 @@ module.exports = {
           }
         ],
         'no-useless-constructor': 'off',
+        '@typescript-eslint/explicit-module-boundary-types': 'off',
         '@typescript-eslint/no-useless-constructor': 'error',
         '@typescript-eslint/member-ordering': 'off',
         '@typescript-eslint/no-explicit-any': 'off', // consider extending on a per project basis
@@ -169,14 +206,14 @@ module.exports = {
           {
             vars: 'all',
             args: 'after-used',
+            argsIgnorePattern: '^_',
             ignoreRestSiblings: true
           }
         ],
-        // the below rules are being evaluated and will either be turned off or allowed through
-        '@typescript-eslint/no-inferrable-types': 'warn',
+        'no-shadow': 'off',
+        '@typescript-eslint/prefer-ts-expect-error': 'warn',
+        '@typescript-eslint/no-shadow': ['error'],
         '@typescript-eslint/no-empty-function': 'warn',
-        '@typescript-eslint/no-var-requires': 'warn',
-        '@typescript-eslint/explicit-module-boundary-types': 'off',
 
         // due to an update with eslint-plugin-import, we need this rule now for typescript
         'import/extensions': [
