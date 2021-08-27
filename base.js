@@ -6,19 +6,33 @@ const noRestrictedImportsBaseConfig = {
     {
       name: 'lodash',
       message:
-        "Please import only needed functions (e.g. import helper from 'lodash/helper') instead to minimize final bundle size."
+        'Please import only needed functions (e.g. import helper from \'lodash/helper\') instead to minimize final bundle size.'
     },
     {
       name: 'date-fns',
       message:
-        "Please import only needed functions (e.g. import func from 'date-fns/func') instead to minimize final bundle size."
+        'Please import only needed functions (e.g. import func from \'date-fns/func\') instead to minimize final bundle size.'
     }
   ]
 };
 
+const noRestrictedSyntax = [{
+        selector: 'ForInStatement',
+        message:
+          'for..in loops iterate over the entire prototype chain, which is virtually never what you want. Use Object.{keys,values,entries}, and iterate over the resulting array.'
+      },
+      {
+        selector: 'LabeledStatement',
+        message: 'Labels are a form of GOTO; using them makes code confusing and hard to maintain and understand.'
+      },
+      {
+        selector: 'WithStatement',
+        message: '`with` is disallowed in strict mode because it makes code impossible to predict and optimize.'
+      }];
+
 module.exports = {
   extends: ['airbnb-base', 'plugin:prettier/recommended'],
-  plugins: ['prettier'],
+  plugins: ['prettier', 'prefer-arrow'],
   rules: {
     'arrow-body-style': ['error', 'as-needed', { requireReturnForObjectLiteral: false }],
     'operator-linebreak': ['error', 'after', { overrides: { '?': 'ignore', ':': 'ignore' } }],
@@ -55,32 +69,34 @@ module.exports = {
     complexity: ['error', 20],
     'handle-callback-err': 'error',
     'class-methods-use-this': 'off',
-    'import/order': [
-      'warn',
-      {
-        groups: ['external', 'builtin', 'internal', 'parent', 'sibling', 'index'],
-        'newlines-between': 'always'
-      }
-    ],
+    'sort-imports': ['error', {
+      'ignoreCase': true,
+      'ignoreDeclarationSort': true,
+      'ignoreMemberSort': false,
+      'memberSyntaxSortOrder': ['none', 'all', 'multiple', 'single'],
+      'allowSeparatedGroups': true
+    }],
+    'import/order': ['error', {
+      'groups': [
+        'external',
+        'builtin',
+        'internal',
+        'parent',
+        'sibling',
+        'index'
+      ],
+      'newlines-between': 'always',
+      'alphabetize': { 'order': 'asc', 'caseInsensitive': true }
+    }],
     'max-classes-per-file': ['error', 1],
-    'no-restricted-syntax': [
-      'error',
-      {
-        selector: 'ForInStatement',
-        message:
-          'for..in loops iterate over the entire prototype chain, which is virtually never what you want. Use Object.{keys,values,entries}, and iterate over the resulting array.'
-      },
-      {
-        selector: 'LabeledStatement',
-        message: 'Labels are a form of GOTO; using them makes code confusing and hard to maintain and understand.'
-      },
-      {
-        selector: 'WithStatement',
-        message: '`with` is disallowed in strict mode because it makes code impossible to predict and optimize.'
-      }
-    ],
+    'no-restricted-syntax': ['error', ...noRestrictedSyntax],
     'no-restricted-imports': ['error', noRestrictedImportsBaseConfig],
-    'no-plusplus': 'off'
+    'no-plusplus': 'off',
+    'prefer-arrow/prefer-arrow-functions': ['error', {
+      'disallowPrototype': false,
+      'singleReturnOnly': false,
+      'classPropertiesAllowed': false
+    }],
   },
   parser: '@babel/eslint-parser',
   parserOptions: {
@@ -214,7 +230,6 @@ module.exports = {
         '@typescript-eslint/prefer-ts-expect-error': 'warn',
         '@typescript-eslint/no-shadow': ['error'],
         '@typescript-eslint/no-empty-function': 'warn',
-
         // due to an update with eslint-plugin-import, we need this rule now for typescript
         'import/extensions': [
           'error',
@@ -224,6 +239,14 @@ module.exports = {
             jsx: 'never',
             ts: 'never',
             tsx: 'never'
+          }
+        ],
+        'no-restricted-syntax': [
+          'error',
+          ...noRestrictedSyntax,
+          {
+            "selector": "TSEnumDeclaration",
+            "message": "Don't declare enums, use object literals with `as const` instead"
           }
         ]
       })
