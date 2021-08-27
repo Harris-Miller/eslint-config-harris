@@ -1,5 +1,5 @@
 module.exports = {
-  extends: ['airbnb', require.resolve('./base'), 'plugin:react-hooks/recommended'],
+  extends: ['airbnb', './base', 'plugin:react-hooks/recommended'],
   rules: {
     'react/jsx-props-no-spreading': ['off'],
     'react/jsx-filename-extension': ['off'], // it's not a good practice
