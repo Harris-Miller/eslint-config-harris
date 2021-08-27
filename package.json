@@ -9,8 +9,8 @@
   },
   "scripts": {
     "bump": "bump --commit --tag",
-    "bump-rc": "npm run bump --preid=rc",
-    "bump-beta": "npm run bump --preid=beta",
+    "bump-rc": "npm run bump -- --preid=rc",
+    "bump-beta": "npm run bump -- --preid=beta",
     "lint": "eslint .",
     "test": "eslint tests/**/*.js tests/**/*.jsx"
   },
@@ -22,7 +22,11 @@
     "styleguide",
     "typescript",
     "tslint",
-    "harris"
+    "harris",
+    "airbnb",
+    "babel",
+    "react",
+    "prettier"
   ],
   "author": "Harris Miller <harrismillerconsulting@gmail.com>",
   "license": "MIT",
