@@ -1,5 +1,6 @@
 module.exports = {
-  extends: ['airbnb', './base', 'plugin:react-hooks/recommended'],
+  extends: ['airbnb', './base'],
+  plugins: ['react-hooks', 'react-redux'],
   rules: {
     'react/jsx-props-no-spreading': ['off'],
     'react/jsx-filename-extension': ['off'], // it's not a good practice
@@ -17,7 +18,7 @@ module.exports = {
         skipUndeclared: false
       }
     ],
-    'react/jsx-no-duplicate-props': ['error', { ignoreCase: false }], // disable ignore case. Material-ui uses same name with different cases like InputProps and inputProps
+    'react/jsx-no-duplicate-props': ['error', { ignoreCase: false }], //disable ignore case. Material-ui uses same name with different cases like InputProps and inputProps
     'react/sort-comp': 'off',
     'react/jsx-sort-props': [
       'error',
@@ -37,15 +38,42 @@ module.exports = {
         ignoreCase: true
       }
     ],
-    'react/static-property-placement': ['error', 'static public field'],
-    'react/state-in-constructor': ['error', 'never'],
+    'react/static-property-placement': ["error", "static public field"],
+    "react/state-in-constructor": ['error', 'never'],
     'react/destructuring-assignment': 'off',
-    'react/no-unsafe': ['warn', { checkAliases: true }]
-  },
-  parserOptions: {
-    ecmaFeatures: {
-      jsx: true
-    }
+    'react-hooks/rules-of-hooks': 'error',
+    // Autofix introduces unexpected behavior at the moment.
+    'react-hooks/exhaustive-deps': 'warn',
+    // Revisit this unsafe rule. We'd like to warn, but it has no effect at the moment.
+    'react/no-unsafe': ['warn', { checkAliases: true }],
+
+    // this was updated in airbnb on 2020/11/06 (nov 6) from "off" to "error"
+    // See: https://github.com/airbnb/javascript/blame/master/packages/eslint-config-airbnb/rules/react.js#L528
+    // their rule is set to "function-expression, which directly conlicts with our `prefer-arrow/prefer-arrow-functions` rule
+    // so I'm updating this to match
+    // ui-core update pending, remove here if approved
+    'react/function-component-definition': [
+      'error',
+      {
+        namedComponents: 'arrow-function',
+        unnamedComponents: 'arrow-function'
+      }
+    ],
+    // this is to help with the convention of naming our selector methods, they should all start with `select`
+    'react-redux/useSelector-prefer-selectors': [
+      'warn',
+      {
+        matching: '^select.*'
+      }
+    ],
+    // defaultProps for FC are deprecated by React team. See: https://github.com/facebook/react/pull/16210
+    'react/require-default-props': [
+      'error',
+      {
+        forbidDefaultForRequired: true,
+        ignoreFunctionalComponents: true
+      }
+    ]
   },
   overrides: [
     {
