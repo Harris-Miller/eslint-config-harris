@@ -1,6 +1,7 @@
 const typescriptEslintRecommended = require('@typescript-eslint/eslint-plugin').configs.recommended;
 const typescriptImports = require('eslint-plugin-import').configs.typescript;
 
+/** @type {import('eslint').Linter.Config} */
 module.exports = {
   extends: ['airbnb-base', 'plugin:prettier/recommended'],
   plugins: ['prettier', 'no-only-tests', 'lodash', 'prefer-arrow'],

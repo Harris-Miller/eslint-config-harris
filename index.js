@@ -1,6 +1,7 @@
+/** @type {import('eslint').Linter.Config} */
 module.exports = {
   extends: ['airbnb', './base'],
-  plugins: ['react-hooks', 'react-redux'],
+  plugins: ['react-hooks', 'react-redux', 'plugin:react-redux/recommended'],
   rules: {
     'react/jsx-props-no-spreading': ['off'],
     'react/jsx-filename-extension': ['off'], // it's not a good practice
@@ -57,13 +58,6 @@ module.exports = {
       {
         namedComponents: 'arrow-function',
         unnamedComponents: 'arrow-function'
-      }
-    ],
-    // this is to help with the convention of naming our selector methods, they should all start with `select`
-    'react-redux/useSelector-prefer-selectors': [
-      'warn',
-      {
-        matching: '^select.*'
       }
     ],
     // defaultProps for FC are deprecated by React team. See: https://github.com/facebook/react/pull/16210
