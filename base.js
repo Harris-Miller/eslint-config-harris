@@ -1,7 +1,10 @@
 const typescriptEslintRecommended = require('@typescript-eslint/eslint-plugin').configs.recommended;
 const typescriptImports = require('eslint-plugin-import').configs.typescript;
 
-const baseRules = {
+module.exports = {
+  extends: ['airbnb-base', 'plugin:prettier/recommended'],
+  plugins: ['prettier', 'no-only-tests', 'lodash', 'prefer-arrow'],
+  rules: {
   'arrow-body-style': ['error', 'as-needed', { requireReturnForObjectLiteral: false }],
   'operator-linebreak': ['error', 'after', { overrides: { '?': 'ignore', ':': 'ignore' } }],
   'comma-dangle': ['error', 'never'],
@@ -69,14 +72,10 @@ const baseRules = {
     }
   ],
   'no-plusplus': 'off',
-  // the below rules are being evaluated and will either be turned off or allowed through
-  // TODO: Remove these overrides on/after January 15, 2022
   'no-loss-of-precision': 'warn',
   'no-nonoctal-decimal-escape': 'warn',
   'no-unsafe-optional-chaining': 'warn',
   'no-useless-backreference': 'warn',
-  // The below rules are set to `warn` as a result of updating eslint-config-airbnb-base to v15
-  // TODO: Remove these overrides on/after February 7, 2022
   'default-case-last': 'warn',
   'default-param-last': 'warn',
   'grouped-accessor-pairs': 'warn',
@@ -130,9 +129,32 @@ const baseRules = {
       classPropertiesAllowed: false
     }
   ]
-};
-
-const tsRules = {
+},
+  parser: '@babel/eslint-parser',
+  parserOptions: {
+    requireConfigFile: false,
+    sourceType: 'module',
+    ecmaVersion: 11,
+    ecmaFeatures: {
+      experimentalObjectRestSpread: true
+    }
+  },
+  overrides: [
+    {
+      files: ['**/*.ts', '**/*.tsx'],
+      parser: '@typescript-eslint/parser',
+      parserOptions: {
+        project: './tsconfig.json', // https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/parser/README.md#configuration
+        ecmaVersion: 2020,
+        sourceType: 'module',
+        ecmaFeatures: {
+          jsx: true
+        },
+        warnOnUnsupportedTypeScriptVersion: true
+      },
+      plugins: ['@typescript-eslint'],
+      ...typescriptImports,
+      rules: {
   ...typescriptEslintRecommended.rules,
   'no-empty-function': 'off',
   'no-undef': 'off',
@@ -265,47 +287,8 @@ const tsRules = {
 
   // typescript version of default-param-last
   'default-param-last': 'off',
-  '@typescript-eslint/default-param-last': 'warn',
-
-  // NO enums
-  'no-restricted-syntax': [
-    ...baseRules['no-restricted-syntax'],
-    {
-      selector: 'TSEnumDeclaration',
-      message: "Don't declare enums, use object literals with `as const` instead"
-    }
-  ]
-};
-
-module.exports = {
-  extends: ['airbnb-base', 'plugin:prettier/recommended'],
-  plugins: ['prettier', 'no-only-tests', 'lodash', 'prefer-arrow'],
-  rules: baseRules,
-  parser: '@babel/eslint-parser',
-  parserOptions: {
-    requireConfigFile: false,
-    sourceType: 'module',
-    ecmaVersion: 11,
-    ecmaFeatures: {
-      experimentalObjectRestSpread: true
-    }
-  },
-  overrides: [
-    {
-      files: ['**/*.ts', '**/*.tsx'],
-      parser: '@typescript-eslint/parser',
-      parserOptions: {
-        project: './tsconfig.json', // https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/parser/README.md#configuration
-        ecmaVersion: 2020,
-        sourceType: 'module',
-        ecmaFeatures: {
-          jsx: true
-        },
-        warnOnUnsupportedTypeScriptVersion: true
-      },
-      plugins: ['@typescript-eslint'],
-      ...typescriptImports,
-      rules: tsRules
+  '@typescript-eslint/default-param-last': 'warn'
+}
     }
   ]
 };
