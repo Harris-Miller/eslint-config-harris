@@ -11,8 +11,7 @@
     "bump": "bump --commit --tag",
     "bump-rc": "npm run bump -- --preid=rc",
     "bump-beta": "npm run bump -- --preid=beta",
-    "lint": "eslint .",
-    "test": "eslint tests/**/*.js tests/**/*.jsx"
+    "lint": "eslint ."
   },
   "files": [
     "index.js",
