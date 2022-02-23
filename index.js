@@ -18,7 +18,7 @@ module.exports = {
         skipUndeclared: false
       }
     ],
-    'react/jsx-no-duplicate-props': ['error', { ignoreCase: false }], //disable ignore case. Material-ui uses same name with different cases like InputProps and inputProps
+    'react/jsx-no-duplicate-props': ['error', { ignoreCase: false }], // disable ignore case. Material-ui uses same name with different cases like InputProps and inputProps
     'react/sort-comp': 'off',
     'react/jsx-sort-props': [
       'error',
@@ -38,8 +38,8 @@ module.exports = {
         ignoreCase: true
       }
     ],
-    'react/static-property-placement': ["error", "static public field"],
-    "react/state-in-constructor": ['error', 'never'],
+    'react/static-property-placement': ['error', 'static public field'],
+    'react/state-in-constructor': ['error', 'never'],
     'react/destructuring-assignment': 'off',
     'react-hooks/rules-of-hooks': 'error',
     // Autofix introduces unexpected behavior at the moment.
@@ -49,7 +49,7 @@ module.exports = {
 
     // this was updated in airbnb on 2020/11/06 (nov 6) from "off" to "error"
     // See: https://github.com/airbnb/javascript/blame/master/packages/eslint-config-airbnb/rules/react.js#L528
-    // their rule is set to "function-expression, which directly conlicts with our `prefer-arrow/prefer-arrow-functions` rule
+    // their rule is set to "function-expression, which directly conflicts with our `prefer-arrow/prefer-arrow-functions` rule
     // so I'm updating this to match
     // ui-core update pending, remove here if approved
     'react/function-component-definition': [

@@ -1,135 +1,286 @@
 const typescriptEslintRecommended = require('@typescript-eslint/eslint-plugin').configs.recommended;
 const typescriptImports = require('eslint-plugin-import').configs.typescript;
 
+const baseRules = {
+  'arrow-body-style': ['error', 'as-needed', { requireReturnForObjectLiteral: false }],
+  'operator-linebreak': ['error', 'after', { overrides: { '?': 'ignore', ':': 'ignore' } }],
+  'comma-dangle': ['error', 'never'],
+  'arrow-parens': ['error', 'as-needed'],
+  'object-curly-newline': ['error', { consistent: true }],
+  'linebreak-style': 'off',
+  'no-mixed-spaces-and-tabs': ['error'],
+  'no-param-reassign': ['error', { props: false }],
+  'no-unused-vars': [
+    'error',
+    {
+      vars: 'all',
+      args: 'after-used',
+      ignoreRestSiblings: true
+    }
+  ],
+  'no-prototype-builtins': 'off',
+  'function-paren-newline': 'off', // conflict with prettier
+  'implicit-arrow-linebreak': 'off',
+  'prettier/prettier': [
+    'error',
+    {
+      singleQuote: true,
+      printWidth: 120,
+      arrowParens: 'avoid',
+      trailingComma: 'none',
+      endOfLine: 'auto'
+    }
+  ],
+  'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
+  'import/prefer-default-export': 'off',
+  'import/no-named-as-default': 'off',
+  'lodash/import-scope': ['error', 'method'],
+  complexity: ['error', 20],
+  'handle-callback-err': 'error',
+  'class-methods-use-this': 'off',
+  'import/order': [
+    'error',
+    {
+      groups: ['external', 'builtin', 'internal', 'parent', 'sibling', 'index'],
+      'newlines-between': 'always',
+      alphabetize: { order: 'asc', caseInsensitive: true }
+    }
+  ],
+  'max-classes-per-file': ['error', 1],
+  'no-only-tests/no-only-tests': 'error',
+  'no-restricted-syntax': [
+    'error',
+    {
+      selector: 'ForInStatement',
+      message:
+        'for..in loops iterate over the entire prototype chain, which is virtually never what you want. Use Object.{keys,values,entries}, and iterate over the resulting array.'
+    },
+    {
+      selector: 'LabeledStatement',
+      message: 'Labels are a form of GOTO; using them makes code confusing and hard to maintain and understand.'
+    },
+    {
+      selector: 'WithStatement',
+      message: '`with` is disallowed in strict mode because it makes code impossible to predict and optimize.'
+    },
+    {
+      selector: 'TSEnumDeclaration',
+      message: "Don't declare enums, use object literals with `as const` instead"
+    }
+  ],
+  'no-plusplus': 'off',
+  // the below rules are being evaluated and will either be turned off or allowed through
+  // TODO: Remove these overrides on/after January 15, 2022
+  'no-loss-of-precision': 'warn',
+  'no-nonoctal-decimal-escape': 'warn',
+  'no-unsafe-optional-chaining': 'warn',
+  'no-useless-backreference': 'warn',
+  // The below rules are set to `warn` as a result of updating eslint-config-airbnb-base to v15
+  // TODO: Remove these overrides on/after February 7, 2022
+  'default-case-last': 'warn',
+  'default-param-last': 'warn',
+  'grouped-accessor-pairs': 'warn',
+  'no-constructor-return': 'warn',
+  'prefer-regex-literals': [
+    'warn',
+    {
+      disallowRedundantWrapping: true
+    }
+  ],
+  'no-dupe-else-if': 'warn',
+  'no-import-assign': 'warn',
+  'no-promise-executor-return': 'warn',
+  'no-setter-return': 'warn',
+  'no-unreachable-loop': 'warn',
+  // this was updated in airbnb on 2020/11/06 (nov 6) from "off" to "error"
+  // they have "default" in this list too, which prevents `export { default } from './file';`, which we have a LOT of
+  // ui-core update pending, remove here if approved
+  'no-restricted-exports': [
+    'error',
+    {
+      restrictedNamedExports: [
+        'then' // this will cause tons of confusion when your module is dynamically `import()`ed, and will break in most node ESM versions
+      ]
+    }
+  ],
+  'import/no-import-module-exports': [
+    'warn',
+    {
+      exceptions: []
+    }
+  ],
+  'import/no-relative-packages': 'warn',
+  'function-call-argument-newline': ['warn', 'consistent'],
+  'prefer-exponentiation-operator': 'warn',
+  'sort-imports': [
+    'error',
+    {
+      ignoreCase: true,
+      ignoreDeclarationSort: true,
+      ignoreMemberSort: false,
+      memberSyntaxSortOrder: ['none', 'all', 'multiple', 'single'],
+      allowSeparatedGroups: true
+    }
+  ],
+  'prefer-arrow/prefer-arrow-functions': [
+    'error',
+    {
+      disallowPrototype: false,
+      singleReturnOnly: false,
+      classPropertiesAllowed: false
+    }
+  ]
+};
+
+const tsRules = {
+  ...typescriptEslintRecommended.rules,
+  'no-empty-function': 'off',
+  'no-undef': 'off',
+  // these are to help with our variable naming conventions
+  '@typescript-eslint/naming-convention': [
+    'warn',
+    // these 3 are are in ui-core but is incomplete, can remove once it is fixed there
+    {
+      selector: 'interface',
+      format: ['PascalCase'],
+      prefix: ['I']
+    },
+    {
+      selector: 'typeAlias',
+      format: ['PascalCase'],
+      prefix: ['T']
+    },
+    {
+      selector: 'typeParameter',
+      format: ['PascalCase'],
+      custom: {
+        regex: '^T([A-Z][a-z]*)*$',
+        match: true
+      }
+    },
+    // these are specific to goldeneye and will keep
+    // they are to help out how we name our variables
+    {
+      // variables, PascalCase is here for React Function Components, as arrow function fall under variable
+      selector: 'variable',
+      format: ['camelCase', 'UPPER_CASE', 'PascalCase']
+    },
+    {
+      selector: 'function',
+      format: ['camelCase', 'PascalCase']
+    },
+    {
+      selector: 'class',
+      format: ['PascalCase']
+    }
+  ],
+  '@typescript-eslint/ban-types': [
+    'error',
+    {
+      types: {
+        String: {
+          message: 'Avoid using the `String` type. Did you mean `string`?',
+          fixWith: 'string'
+        },
+        Object: {
+          message: 'Avoid using the `Object` type. Did you mean `object`?'
+        },
+        Boolean: {
+          message: 'Avoid using the `Boolean` type. Did you mean `boolean`?'
+        },
+        Number: {
+          message: 'Avoid using the `Number` type. Did you mean `number`?'
+        },
+        Symbol: {
+          message: 'Avoid using the `Symbol` type. Did you mean `symbol`?'
+        }
+      },
+      extendDefaults: false
+    }
+  ],
+  'no-useless-constructor': 'off',
+  '@typescript-eslint/explicit-module-boundary-types': 'off',
+  '@typescript-eslint/no-useless-constructor': 'error',
+  '@typescript-eslint/member-ordering': 'off',
+  '@typescript-eslint/no-explicit-any': 'off', // consider extending on a per project basis
+  '@typescript-eslint/no-extraneous-class': 'error',
+  '@typescript-eslint/no-parameter-properties': 'off',
+  '@typescript-eslint/no-require-imports': 'error',
+  '@typescript-eslint/no-this-alias': ['error', { allowDestructuring: true }],
+  '@typescript-eslint/ban-ts-comment': 'off',
+  '@typescript-eslint/no-type-alias': 'off',
+  'no-use-before-define': 'off',
+  '@typescript-eslint/no-use-before-define': [
+    'warn',
+    {
+      functions: false,
+      classes: true,
+      variables: true,
+      typedefs: true
+    }
+  ],
+  '@typescript-eslint/no-object-literal-type-assertion': 'off',
+  '@typescript-eslint/explicit-function-return-type': 'off',
+  '@typescript-eslint/explicit-member-accessibility': 'off',
+  '@typescript-eslint/no-unnecessary-qualifier': 'error',
+  '@typescript-eslint/prefer-for-of': 'error',
+  '@typescript-eslint/restrict-plus-operands': 'error',
+  'no-unused-vars': 'off',
+  '@typescript-eslint/no-unused-vars': [
+    'error',
+    {
+      vars: 'all',
+      args: 'after-used',
+      argsIgnorePattern: '^_',
+      ignoreRestSiblings: true
+    }
+  ],
+  'no-shadow': 'off',
+  '@typescript-eslint/no-shadow': ['error'],
+  '@typescript-eslint/prefer-ts-expect-error': 'warn',
+  '@typescript-eslint/no-empty-function': 'warn',
+  // the below rules are being evaluated and will either be turned off or allowed through
+
+  // due to an update with eslint-plugin-import, we need this rule now for typescript
+  'import/extensions': [
+    'error',
+    'ignorePackages',
+    {
+      js: 'never',
+      jsx: 'never',
+      ts: 'never',
+      tsx: 'never'
+    }
+  ],
+
+  // Added as part of @typescript-eslint monorepo v5 upgrade to account for incoming new error-level recommended rule.
+  'no-loss-of-precision': 'off',
+  '@typescript-eslint/no-loss-of-precision': ['warn'],
+
+  // Added as part of @typescript-eslint monorepo v5 upgrade to account for incoming new error-level recommended rule.
+  '@typescript-eslint/no-unnecessary-type-constraint': 'warn',
+
+  // Added as part of @typescript-eslint monorepo v5 upgrade to account for incoming new error-level recommended rule.
+  '@typescript-eslint/no-unsafe-argument': 'warn',
+
+  // typescript version of default-param-last
+  'default-param-last': 'off',
+  '@typescript-eslint/default-param-last': 'warn',
+
+  // NO enums
+  'no-restricted-syntax': [
+    ...baseRules['no-restricted-syntax'],
+    {
+      selector: 'TSEnumDeclaration',
+      message: "Don't declare enums, use object literals with `as const` instead"
+    }
+  ]
+};
+
 module.exports = {
   extends: ['airbnb-base', 'plugin:prettier/recommended'],
   plugins: ['prettier', 'no-only-tests', 'lodash', 'prefer-arrow'],
-  rules: {
-    'arrow-body-style': ['error', 'as-needed', { requireReturnForObjectLiteral: false }],
-    'operator-linebreak': ['error', 'after', { overrides: { '?': 'ignore', ':': 'ignore' } }],
-    'comma-dangle': ['error', 'never'],
-    'arrow-parens': ['error', 'as-needed'],
-    'object-curly-newline': ['error', { consistent: true }],
-    'linebreak-style': 'off',
-    'no-mixed-spaces-and-tabs': ['error'],
-    'no-param-reassign': ['error', { props: false }],
-    'no-unused-vars': [
-      'error',
-      {
-        vars: 'all',
-        args: 'after-used',
-        ignoreRestSiblings: true
-      }
-    ],
-    'no-prototype-builtins': 'off',
-    'function-paren-newline': 'off', // conflict with prettier
-    'implicit-arrow-linebreak': 'off',
-    'prettier/prettier': [
-      'error',
-      {
-        singleQuote: true,
-        printWidth: 120,
-        arrowParens: 'avoid',
-        trailingComma: 'none',
-        endOfLine: 'auto'
-      }
-    ],
-    'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
-    'import/prefer-default-export': 'off',
-    'import/no-named-as-default': 'off',
-    'lodash/import-scope': ['error', 'method'],
-    complexity: ['error', 20],
-    'handle-callback-err': 'error',
-    'class-methods-use-this': 'off',
-    'import/order': [
-      'error',
-      {
-        groups: ['external', 'builtin', 'internal', 'parent', 'sibling', 'index'],
-        'newlines-between': 'always',
-        alphabetize: { order: 'asc', caseInsensitive: true }
-      }
-    ],
-    'max-classes-per-file': ['error', 1],
-    'no-only-tests/no-only-tests': 'error',
-    'no-restricted-syntax': [
-      'error',
-      {
-        selector: 'ForInStatement',
-        message:
-          'for..in loops iterate over the entire prototype chain, which is virtually never what you want. Use Object.{keys,values,entries}, and iterate over the resulting array.'
-      },
-      {
-        selector: 'LabeledStatement',
-        message: 'Labels are a form of GOTO; using them makes code confusing and hard to maintain and understand.'
-      },
-      {
-        selector: 'WithStatement',
-        message: '`with` is disallowed in strict mode because it makes code impossible to predict and optimize.'
-      }
-    ],
-    'no-plusplus': 'off',
-    // the below rules are being evaluated and will either be turned off or allowed through
-    // TODO: Remove these overrides on/after January 15, 2022
-    'no-loss-of-precision': 'warn',
-    'no-nonoctal-decimal-escape': 'warn',
-    'no-unsafe-optional-chaining': 'warn',
-    'no-useless-backreference': 'warn',
-    // The below rules are set to `warn` as a result of updating eslint-config-airbnb-base to v15
-    // TODO: Remove these overrides on/after February 7, 2022
-    'default-case-last': 'warn',
-    'default-param-last': 'warn',
-    'grouped-accessor-pairs': 'warn',
-    'no-constructor-return': 'warn',
-    'prefer-regex-literals': [
-      'warn',
-      {
-        disallowRedundantWrapping: true
-      }
-    ],
-    'no-dupe-else-if': 'warn',
-    'no-import-assign': 'warn',
-    'no-promise-executor-return': 'warn',
-    'no-setter-return': 'warn',
-    'no-unreachable-loop': 'warn',
-    // this was updated in airbnb on 2020/11/06 (nov 6) from "off" to "error"
-    // they have "default" in this list too, which prevents `export { default } from './file';`, which we have a LOT of
-    // ui-core update pending, remove here if approved
-    'no-restricted-exports': [
-      'error',
-      {
-        restrictedNamedExports: [
-          'then' // this will cause tons of confusion when your module is dynamically `import()`ed, and will break in most node ESM versions
-        ]
-      }
-    ],
-    'import/no-import-module-exports': [
-      'warn',
-      {
-        exceptions: []
-      }
-    ],
-    'import/no-relative-packages': 'warn',
-    'function-call-argument-newline': ['warn', 'consistent'],
-    'prefer-exponentiation-operator': 'warn',
-    'sort-imports': [
-      'error',
-      {
-        ignoreCase: true,
-        ignoreDeclarationSort: true,
-        ignoreMemberSort: false,
-        memberSyntaxSortOrder: ['none', 'all', 'multiple', 'single'],
-        allowSeparatedGroups: true
-      }
-    ],
-    'prefer-arrow/prefer-arrow-functions': [
-      'error',
-      {
-        disallowPrototype: false,
-        singleReturnOnly: false,
-        classPropertiesAllowed: false
-      }
-    ]
-  },
+  rules: baseRules,
   parser: '@babel/eslint-parser',
   parserOptions: {
     requireConfigFile: false,
@@ -154,149 +305,7 @@ module.exports = {
       },
       plugins: ['@typescript-eslint'],
       ...typescriptImports,
-      rules: Object.assign(typescriptEslintRecommended.rules, {
-        'no-empty-function': 'off',
-        'no-undef': 'off',
-        // these are to help with our variable naming conventions
-        '@typescript-eslint/naming-convention': [
-          'warn',
-          // these 3 are are in ui-core but is incomplete, can remove once it is fixed there
-          {
-            selector: 'interface',
-            format: ['PascalCase'],
-            prefix: ['I']
-          },
-          {
-            selector: 'typeAlias',
-            format: ['PascalCase'],
-            prefix: ['T']
-          },
-          {
-            selector: 'typeParameter',
-            format: ['PascalCase'],
-            custom: {
-              regex: '^T([A-Z][a-z]*)*$',
-              match: true
-            }
-          },
-          // these are specific to goldeneye and will keep
-          // they are to help out how we name our variables
-          {
-            // variables, PascalCase is here for React Function Components, as arrow function fall under variable
-            selector: 'variable',
-            format: ['camelCase', 'UPPER_CASE', 'PascalCase']
-          },
-          {
-            selector: 'function',
-            format: ['camelCase', 'PascalCase']
-          },
-          {
-            selector: 'class',
-            format: ['PascalCase']
-          }
-        ],
-        '@typescript-eslint/ban-types': [
-          'error',
-          {
-            types: {
-              String: {
-                message: 'Avoid using the `String` type. Did you mean `string`?',
-                fixWith: 'string'
-              },
-              Object: {
-                message: 'Avoid using the `Object` type. Did you mean `object`?'
-              },
-              Boolean: {
-                message: 'Avoid using the `Boolean` type. Did you mean `boolean`?'
-              },
-              Number: {
-                message: 'Avoid using the `Number` type. Did you mean `number`?'
-              },
-              Symbol: {
-                message: 'Avoid using the `Symbol` type. Did you mean `symbol`?'
-              }
-            },
-            extendDefaults: false
-          }
-        ],
-        'no-useless-constructor': 'off',
-        '@typescript-eslint/explicit-module-boundary-types': 'off',
-        '@typescript-eslint/no-useless-constructor': 'error',
-        '@typescript-eslint/member-ordering': 'off',
-        '@typescript-eslint/no-explicit-any': 'off', // consider extending on a per project basis
-        '@typescript-eslint/no-extraneous-class': 'error',
-        '@typescript-eslint/no-parameter-properties': 'off',
-        '@typescript-eslint/no-require-imports': 'error',
-        '@typescript-eslint/no-this-alias': ['error', { allowDestructuring: true }],
-        '@typescript-eslint/ban-ts-comment': 'off',
-        '@typescript-eslint/no-type-alias': 'off',
-        'no-use-before-define': 'off',
-        '@typescript-eslint/no-use-before-define': [
-          'warn',
-          {
-            functions: false,
-            classes: true,
-            variables: true,
-            typedefs: true
-          }
-        ],
-        '@typescript-eslint/no-object-literal-type-assertion': 'off',
-        '@typescript-eslint/explicit-function-return-type': 'off',
-        '@typescript-eslint/explicit-member-accessibility': 'off',
-        '@typescript-eslint/no-unnecessary-qualifier': 'error',
-        '@typescript-eslint/prefer-for-of': 'error',
-        '@typescript-eslint/restrict-plus-operands': 'error',
-        'no-unused-vars': 'off',
-        '@typescript-eslint/no-unused-vars': [
-          'error',
-          {
-            vars: 'all',
-            args: 'after-used',
-            argsIgnorePattern: '^_',
-            ignoreRestSiblings: true
-          }
-        ],
-        'no-shadow': 'off',
-        '@typescript-eslint/no-shadow': ['error'],
-        '@typescript-eslint/prefer-ts-expect-error': 'warn',
-        '@typescript-eslint/no-empty-function': 'warn',
-        // the below rules are being evaluated and will either be turned off or allowed through
-
-        // due to an update with eslint-plugin-import, we need this rule now for typescript
-        'import/extensions': [
-          'error',
-          'ignorePackages',
-          {
-            js: 'never',
-            jsx: 'never',
-            ts: 'never',
-            tsx: 'never'
-          }
-        ],
-
-        // Added as part of @typescript-eslint monorepo v5 upgrade to account for incoming new error-level recommended rule.
-        'no-loss-of-precision': 'off',
-        '@typescript-eslint/no-loss-of-precision': ['warn'],
-
-        // Added as part of @typescript-eslint monorepo v5 upgrade to account for incoming new error-level recommended rule.
-        '@typescript-eslint/no-unnecessary-type-constraint': 'warn',
-
-        // Added as part of @typescript-eslint monorepo v5 upgrade to account for incoming new error-level recommended rule.
-        '@typescript-eslint/no-unsafe-argument': 'warn',
-
-        // typescript version of default-param-last
-        'default-param-last': 'off',
-        '@typescript-eslint/default-param-last': 'warn',
-
-        // NO enums
-        'no-restricted-syntax': [
-          'error',
-          {
-            selector: 'TSEnumDeclaration',
-            message: "Don't declare enums, use object literals with `as const` instead"
-          }
-        ]
-      })
+      rules: tsRules
     }
   ]
 };
