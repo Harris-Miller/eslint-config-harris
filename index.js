@@ -1,7 +1,7 @@
 /** @type {import('eslint').Linter.Config} */
 module.exports = {
-  extends: ['airbnb', './base'],
-  plugins: ['react-hooks', 'react-redux', 'plugin:react-redux/recommended'],
+  plugins: ['react-hooks', 'react-redux'],
+  extends: ['airbnb', './base', 'plugin:react-redux/recommended'],
   rules: {
     'react/jsx-props-no-spreading': ['off'],
     'react/jsx-filename-extension': ['off'], // it's not a good practice

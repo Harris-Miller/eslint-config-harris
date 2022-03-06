@@ -3,8 +3,8 @@ const typescriptImports = require('eslint-plugin-import').configs.typescript;
 
 /** @type {import('eslint').Linter.Config} */
 module.exports = {
-  extends: ['airbnb-base', 'plugin:prettier/recommended'],
   plugins: ['prettier', 'no-only-tests', 'lodash', 'prefer-arrow'],
+  extends: ['airbnb-base', 'plugin:prettier/recommended'],
   rules: {
     'arrow-body-style': ['error', 'as-needed', { requireReturnForObjectLiteral: false }],
     'operator-linebreak': ['error', 'after', { overrides: { '?': 'ignore', ':': 'ignore' } }],
