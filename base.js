@@ -1,11 +1,29 @@
 const typescriptEslintRecommended = require('@typescript-eslint/eslint-plugin').configs.recommended;
+// eslint-disable-next-line import/no-extraneous-dependencies
+const airbnbBaseVariables = require('eslint-config-airbnb-base/rules/variables');
 const typescriptImports = require('eslint-plugin-import').configs.typescript;
+
+// `self` is the globalThis in workers, which eslint-config-airbnb-base has as a no-restricted-globals
+// even when setting `eslint-env worker`, referencing `self` still throws an error because of this
+// so we need to grab it's rule here and remove it from it's list
+const noRestrictedGlobals = airbnbBaseVariables.rules['no-restricted-globals'].filter(g => g !== 'self');
 
 /** @type {import('eslint').Linter.Config} */
 module.exports = {
+  plugins: ['prettier', 'no-only-tests', 'lodash', 'prefer-arrow', 'sort-keys-fix', 'typescript-sort-keys'],
   extends: ['airbnb-base', 'plugin:prettier/recommended'],
-  plugins: ['prettier', 'no-only-tests', 'lodash', 'prefer-arrow'],
+  parser: '@babel/eslint-parser',
+  parserOptions: {
+    requireConfigFile: false,
+    sourceType: 'module',
+    ecmaVersion: 11,
+    ecmaFeatures: {
+      experimentalObjectRestSpread: true
+    }
+  },
   rules: {
+    // override airbnb's 'no-restricted-globals' for the reasons explained at the top of the file
+    'no-restricted-globals': noRestrictedGlobals,
     'arrow-body-style': ['error', 'as-needed', { requireReturnForObjectLiteral: false }],
     'operator-linebreak': ['error', 'after', { overrides: { '?': 'ignore', ':': 'ignore' } }],
     'comma-dangle': ['error', 'never'],
@@ -129,16 +147,10 @@ module.exports = {
         singleReturnOnly: false,
         classPropertiesAllowed: false
       }
-    ]
-  },
-  parser: '@babel/eslint-parser',
-  parserOptions: {
-    requireConfigFile: false,
-    sourceType: 'module',
-    ecmaVersion: 11,
-    ecmaFeatures: {
-      experimentalObjectRestSpread: true
-    }
+    ],
+    // eslint-plugin-sort-keys-fix needs the base rule turned off so we can use it's replacement rule
+    'sort-keys': 'off',
+    'sort-keys-fix/sort-keys-fix': 'warn'
   },
   overrides: [
     {
@@ -162,27 +174,6 @@ module.exports = {
         // these are to help with our variable naming conventions
         '@typescript-eslint/naming-convention': [
           'warn',
-          // these 3 are are in ui-core but is incomplete, can remove once it is fixed there
-          {
-            selector: 'interface',
-            format: ['PascalCase'],
-            prefix: ['I']
-          },
-          {
-            selector: 'typeAlias',
-            format: ['PascalCase'],
-            prefix: ['T']
-          },
-          {
-            selector: 'typeParameter',
-            format: ['PascalCase'],
-            custom: {
-              regex: '^T([A-Z][a-z]*)*$',
-              match: true
-            }
-          },
-          // these are specific to goldeneye and will keep
-          // they are to help out how we name our variables
           {
             // variables, PascalCase is here for React Function Components, as arrow function fall under variable
             selector: 'variable',
@@ -288,7 +279,10 @@ module.exports = {
 
         // typescript version of default-param-last
         'default-param-last': 'off',
-        '@typescript-eslint/default-param-last': 'warn'
+        '@typescript-eslint/default-param-last': 'warn',
+
+        // the rule is called interface, but it works for types as well
+        'typescript-sort-keys/interface': 'warn'
       }
     }
   ]
