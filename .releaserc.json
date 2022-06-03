@@ -1,0 +1,43 @@
+{
+  "branches": [
+    "+([0-9])?(.{+([0-9]),x}).x",
+    "main",
+    "next",
+    "next-major",
+    {
+      "name": "beta",
+      "prerelease": true
+    },
+    {
+      "name": "alpha",
+      "prerelease": true
+    }
+  ],
+  "plugins": [
+    [
+      "@semantic-release/commit-analyzer",
+      {
+        "config": "conventional-changelog-ayx",
+        "releaseRules": "conventional-changelog-ayx/release-rules"
+      }
+    ],
+    [
+      "@semantic-release/release-notes-generator",
+      {
+        "config": "conventional-changelog-ayx"
+      }
+    ],
+    "@semantic-release/github",
+    "@semantic-release/npm",
+    [
+      "@semantic-release/git",
+      {
+        "assets": [
+          "package.json",
+          "package-lock.json"
+        ],
+        "message": "[skip ci] Bumping version to ${nextRelease.version}"
+      }
+    ]
+  ]
+}
