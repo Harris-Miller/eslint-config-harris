@@ -1,7 +1,7 @@
 /** @type {import('eslint').Linter.Config} */
 module.exports = {
-  plugins: ['react-hooks', 'react-redux', 'plugin:react-redux/recommended'],
-  extends: ['airbnb', './base'],
+  plugins: ['react-hooks', 'react-redux'],
+  extends: ['airbnb', './base', 'plugin:react-redux/recommended'],
   overrides: [
     {
       files: ['**/*.jsx', '**/*.tsx'],
