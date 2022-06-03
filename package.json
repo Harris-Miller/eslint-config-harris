@@ -5,7 +5,7 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git@github.com:Harris-Miller/node-eslint-config-harris.git"
+    "url": "https://github.com/Harris-Miller/node-eslint-config-harris.git"
   },
   "scripts": {
     "bump": "bump --commit --tag",
