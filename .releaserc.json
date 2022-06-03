@@ -26,18 +26,6 @@
       {
         "config": "conventional-changelog-ayx"
       }
-    ],
-    "@semantic-release/github",
-    "@semantic-release/npm",
-    [
-      "@semantic-release/git",
-      {
-        "assets": [
-          "package.json",
-          "package-lock.json"
-        ],
-        "message": "[skip ci] Bumping version to ${nextRelease.version}"
-      }
     ]
   ]
 }
