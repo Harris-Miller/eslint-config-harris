@@ -17,14 +17,13 @@
     [
       "@semantic-release/commit-analyzer",
       {
-        "config": "conventional-changelog-ayx",
-        "releaseRules": "conventional-changelog-ayx/release-rules"
+        "preset": "eslint"
       }
     ],
     [
       "@semantic-release/release-notes-generator",
       {
-        "config": "conventional-changelog-ayx"
+        "preset": "eslint"
       }
     ]
   ]
