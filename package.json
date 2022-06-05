@@ -2,17 +2,13 @@
   "name": "eslint-config-harris",
   "version": "3.4.1",
   "description": "Harris' ESLint config",
-  "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Harris-Miller/node-eslint-config-harris.git"
+    "url": "https://github.com/Harris-Miller/eslint-config-harris.git"
   },
-  "scripts": {
-    "bump": "bump --commit --tag",
-    "bump-rc": "npm run bump -- --preid=rc",
-    "bump-beta": "npm run bump -- --preid=beta",
-    "lint": "eslint ."
-  },
+  "author": "Harris Miller <harrismillerconsulting@gmail.com>",
+  "license": "MIT",
+  "main": "index.js",
   "files": [
     "index.js",
     "base.js"
@@ -31,8 +27,12 @@
     "react",
     "prettier"
   ],
-  "author": "Harris Miller <harrismillerconsulting@gmail.com>",
-  "license": "MIT",
+  "scripts": {
+    "bump": "bump --commit --tag",
+    "bump-rc": "npm run bump -- --preid=rc",
+    "bump-beta": "npm run bump -- --preid=beta",
+    "lint": "eslint ."
+  },
   "dependencies": {
     "@babel/eslint-parser": "^7.18.2",
     "@types/eslint": "^8.4.2",
