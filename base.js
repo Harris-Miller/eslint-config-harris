@@ -53,7 +53,7 @@ module.exports = {
         endOfLine: 'auto'
       }
     ],
-    'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
+    'import/no-extraneous-dependencies': 'off',
     'import/prefer-default-export': 'off',
     'import/no-named-as-default': 'off',
     'lodash/import-scope': ['error', 'method'],
