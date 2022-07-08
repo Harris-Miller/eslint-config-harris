@@ -4,7 +4,7 @@
   "description": "Harris' ESLint config",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Harris-Miller/eslint-config-harris.git"
+    "url": "https://gitlab.com/Harris-Miller/eslint-config-harris.git"
   },
   "author": "Harris Miller <harrismillerconsulting@gmail.com>",
   "license": "MIT",
