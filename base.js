@@ -1,5 +1,4 @@
 const typescriptEslintRecommended = require('@typescript-eslint/eslint-plugin').configs.recommended;
-// eslint-disable-next-line import/no-extraneous-dependencies
 const airbnbBaseVariables = require('eslint-config-airbnb-base/rules/variables');
 const typescriptImports = require('eslint-plugin-import').configs.typescript;
 
@@ -53,6 +52,7 @@ module.exports = {
         endOfLine: 'auto'
       }
     ],
+    'import/consistent-type-imports': ['error', { disallowTypeAnnotations: false }],
     'import/no-extraneous-dependencies': 'off',
     'import/prefer-default-export': 'off',
     'import/no-named-as-default': 'off',

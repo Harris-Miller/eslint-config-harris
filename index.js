@@ -42,6 +42,7 @@ module.exports = {
             ignoreCase: true
           }
         ],
+        'react/react-in-scope': 'off',
         'react/static-property-placement': ['error', 'static public field'],
         'react/state-in-constructor': ['error', 'never'],
         'react/destructuring-assignment': 'off',
