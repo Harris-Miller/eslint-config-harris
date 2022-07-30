@@ -52,7 +52,6 @@ module.exports = {
         endOfLine: 'auto'
       }
     ],
-    'import/consistent-type-imports': ['error', { disallowTypeAnnotations: false }],
     'import/no-extraneous-dependencies': 'off',
     'import/prefer-default-export': 'off',
     'import/no-named-as-default': 'off',
@@ -282,7 +281,9 @@ module.exports = {
         '@typescript-eslint/default-param-last': 'warn',
 
         // the rule is called interface, but it works for types as well
-        'typescript-sort-keys/interface': 'warn'
+        'typescript-sort-keys/interface': 'warn',
+
+        '@typescript-eslint/consistent-type-imports': ['error', { disallowTypeAnnotations: false }]
       }
     }
   ]
