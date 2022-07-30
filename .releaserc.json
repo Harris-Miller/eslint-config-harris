@@ -1,4 +1,4 @@
 {
-  "extends": "harris-configs/semantic-release/rules",
+  "extends": "./node_modules/harris-configs/semantic-release/rules",
   "tagFormat": "v${version}"
 }
