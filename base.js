@@ -9,7 +9,7 @@ const noRestrictedGlobals = airbnbBaseVariables.rules['no-restricted-globals'].f
 
 /** @type {import('eslint').Linter.Config} */
 module.exports = {
-  plugins: ['prettier', 'no-only-tests', 'lodash', 'prefer-arrow', 'sort-keys-fix', 'typescript-sort-keys'],
+  plugins: ['prettier', 'lodash', 'prefer-arrow', 'sort-keys-fix', 'typescript-sort-keys'],
   extends: ['airbnb-base', 'plugin:prettier/recommended'],
   parser: '@babel/eslint-parser',
   parserOptions: {
@@ -68,7 +68,6 @@ module.exports = {
       }
     ],
     'max-classes-per-file': ['error', 1],
-    'no-only-tests/no-only-tests': 'error',
     'no-restricted-syntax': [
       'error',
       {
