@@ -61,7 +61,7 @@ lint:
 #------------------------------------------------------------------------------
 semantic-release:
   stage: publish
-  image: $CI_REGISTRY/harris-miller/semantic-release-image
+  image: $CI_REGISTRY/harris-miller/semantic-release-image:latest
   script:
     - semantic-release # this bin is available via the docker image
   rules:
