@@ -63,6 +63,6 @@ semantic-release:
   stage: publish
   image: $CI_REGISTRY/harris-miller/semantic-release-image:latest
   script:
-    - semantic-release # this bin is available via the docker image
+    - npx semantic-release # this bin is available via the docker image
   rules:
     - if: $CI_COMMIT_REF_PROTECTED == "true"
