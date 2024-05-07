@@ -1,4 +1,0 @@
-{
-  "extends": "harris-configs/semantic-release/rules",
-  "tagFormat": "v${version}"
-}
