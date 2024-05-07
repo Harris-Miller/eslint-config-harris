@@ -11,6 +11,7 @@ const importConfig = {
     'import/resolver': {
       // the typescript resolve is the best for all
       typescript: true,
+      node: true,
     },
   },
   rules: {
