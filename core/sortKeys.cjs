@@ -2,6 +2,7 @@ const sortKeysFixPlugin = require('eslint-plugin-sort-keys-fix');
 
 /** @type {import('eslint').Linter.FlatConfig} */
 const sortKeysFixConfig = {
+  name: 'harris/sortKeys',
   plugins: {
     'sort-keys-fix': {
       meta: sortKeysFixPlugin.meta,

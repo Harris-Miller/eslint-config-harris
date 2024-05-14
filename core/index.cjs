@@ -9,6 +9,7 @@ const sortKeysFixConfig = require('./sortKeys.cjs');
 /** @type {import('eslint').Linter.FlatConfig[]} */
 module.exports = [
   {
+    name: 'harris/core',
     // apply to ALL, typescript specific rules will apply only to those extensions, etc
     files: ['**/*.js', '**/*.cjs', '**/*.mjs', '**/*.jsx', '**/*.ts', '**/*.mts', '**/*.tsx'],
     languageOptions: {
@@ -18,7 +19,10 @@ module.exports = [
       reportUnusedDisableDirectives: true,
     },
   },
-  eslint.configs.recommended,
+  {
+    name: 'eslint/recommended',
+    ...eslint.configs.recommended,
+  },
   personalConfig,
   prettierConfig,
   importConfig,

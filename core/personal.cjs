@@ -6,6 +6,7 @@ const confusingBrowserGlobals = require('confusing-browser-globals');
 
 /** @type {import('eslint').Linter.FlatConfig} */
 const personalConfig = {
+  name: 'harris/personal',
   rules: {
     //
     // problems

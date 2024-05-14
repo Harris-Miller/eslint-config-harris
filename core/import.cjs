@@ -2,6 +2,7 @@ const importPlugin = require('eslint-plugin-import');
 
 /** @type {import('eslint').Linter.FlatConfig} */
 const importConfig = {
+  name: 'harris/import',
   plugins: {
     import: importPlugin,
   },

@@ -5,6 +5,7 @@ const reactHooksPlugin = require('eslint-plugin-react-hooks');
 /** @type {import('eslint').Linter.FlatConfig[]} */
 const reactConfig = [
   {
+    name: 'harris/react',
     files: ['**/*.jsx', '**/*.tsx'],
     languageOptions: {
       parserOptions: {

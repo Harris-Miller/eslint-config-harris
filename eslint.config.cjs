@@ -6,12 +6,14 @@ const baseConfig = require('./core/index.cjs');
 module.exports = [
   ...baseConfig,
   {
+    name: 'repo/node',
     files: ['*.cjs'],
     languageOptions: {
       globals: globals.node,
     },
   },
   {
+    name: 'repo/overrides',
     rules: {
       'sort-keys-fix/sort-keys-fix': 'off',
     },

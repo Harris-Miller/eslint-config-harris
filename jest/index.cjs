@@ -1,5 +1,6 @@
 /** @type {import('eslint').Linter.Config} */
 module.exports = {
+  name: 'harris/jest',
   plugins: ['jest'],
   overrides: [
     {

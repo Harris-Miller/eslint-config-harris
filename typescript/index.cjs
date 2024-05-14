@@ -5,6 +5,7 @@ const tsSortKeysPlugin = require('eslint-plugin-typescript-sort-keys');
 /** @type {import('eslint').Linter.FlatConfig[]} */
 module.exports = [
   {
+    name: 'harris/typescript',
     files: ['**/*.ts', '**/*.mts', '**/*.tsx'],
     languageOptions: {
       parser: tsParser,
