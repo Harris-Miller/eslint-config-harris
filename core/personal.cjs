@@ -59,7 +59,7 @@ const personalConfig = {
     'grouped-accessor-pairs': 'error',
     'guard-for-in': 'error',
     // replaced by `@typescript-eslint/init-declarations`
-    'init-declarations': ['error', 'always'],
+    'init-declarations': ['off', 'always'],
     'logical-assignment-operators': ['error', 'always', { enforceForIfStatements: true }],
     'max-classes-per-file': ['error', 1],
     // airbnb has this off, but i'm going to test it on

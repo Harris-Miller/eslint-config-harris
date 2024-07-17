@@ -44,7 +44,10 @@ module.exports = [
       '@typescript-eslint/consistent-type-definitions': 'off',
       // not needed for --isolatedModules, typescript itself throws the same error
       '@typescript-eslint/consistent-type-exports': 'off',
-      '@typescript-eslint/consistent-type-imports': ['error', { fixStyle: 'inline-type-imports' }],
+      '@typescript-eslint/consistent-type-imports': [
+        'error',
+        { prefer: 'type-imports', fixStyle: 'separate-type-imports', disallowTypeAnnotations: true },
+      ],
       'default-param-last': 'off',
       '@typescript-eslint/default-param-last': 'error',
       // @typescript-eslint/explicit-module-boundary-types is better
@@ -53,7 +56,7 @@ module.exports = [
       // this is generally useful, but strict, not appropriate for all projects, turn off as needed
       '@typescript-eslint/explicit-module-boundary-types': 'error',
       'init-declarations': 'off',
-      '@typescript-eslint/init-declarations': ['error', 'always'],
+      '@typescript-eslint/init-declarations': ['off', 'always'],
       '@typescript-eslint/max-params': 'off',
       '@typescript-eslint/member-ordering': 'off',
       '@typescript-eslint/method-signature-style': 'off',
