@@ -46,7 +46,7 @@ module.exports = [
       '@typescript-eslint/consistent-type-exports': 'off',
       '@typescript-eslint/consistent-type-imports': [
         'error',
-        { prefer: 'type-imports', fixStyle: 'separate-type-imports', disallowTypeAnnotations: true },
+        { prefer: 'type-imports', fixStyle: 'separate-type-imports', disallowTypeAnnotations: false },
       ],
       'default-param-last': 'off',
       '@typescript-eslint/default-param-last': 'error',
@@ -93,7 +93,7 @@ module.exports = [
       // too strict, even from prod ??
       '@typescript-eslint/no-floating-promises': 'off',
       // not needed when tsc isn't used to compile
-      '@typescript-eslint/no-import-type-side-effects': 'off',
+      '@typescript-eslint/no-import-type-side-effects': 'error',
       'no-invalid-this': 'error',
       '@typescript-eslint/no-invalid-this': 'error',
       'no-loop-func': 'off',

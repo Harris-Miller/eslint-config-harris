@@ -54,7 +54,7 @@ const personalConfig = {
     'dot-notation': 'error',
     // `{ null: 'ignore' }` because `x == null` checks both `null` and `undefined`
     eqeqeq: ['error', 'always', { null: 'ignore' }],
-    'func-names': 'error',
+    'func-names': ['error', 'as-needed'],
     'func-style': ['error', 'expression', { allowArrowFunctions: true }],
     'grouped-accessor-pairs': 'error',
     'guard-for-in': 'error',

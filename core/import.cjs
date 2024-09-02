@@ -55,8 +55,7 @@ const importConfig = {
     'import/no-webpack-loader-syntax': 'error',
 
     // Style guide
-    // @typescript-eslint/consistent-type-imports covers this better
-    'import/consistent-type-specifier-style': 'off',
+    'import/consistent-type-specifier-style': ['error', 'prefer-top-level'],
     'import/dynamic-import-chunkname': 'off',
     'import/exports-last': 'off',
     'import/extensions': ['error', { ignorePackages: true }],

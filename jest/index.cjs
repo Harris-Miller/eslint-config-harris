@@ -43,5 +43,12 @@ module.exports = {
         'jest/require-top-level-describe': 'error',
       },
     },
+    {
+      files: ['**/*.test.ts', '**/*.spec.tsx'],
+      rules: {
+        // blanket off for test files
+        '@typescript-eslint/no-non-null-assertion': 'off',
+      },
+    },
   ],
 };
