@@ -1,6 +1,7 @@
 const jsxA11yPlugin = require('eslint-plugin-jsx-a11y');
 const reactPlugin = require('eslint-plugin-react');
 const reactHooksPlugin = require('eslint-plugin-react-hooks');
+const reactRefreshPlugin = require('eslint-plugin-react-refresh');
 
 /** @type {import('eslint').Linter.FlatConfig[]} */
 const reactConfig = [
@@ -23,6 +24,7 @@ const reactConfig = [
       'jsx-a11y': jsxA11yPlugin,
       react: reactPlugin,
       'react-hooks': reactHooksPlugin,
+      'react-refresh': reactRefreshPlugin,
     },
     rules: {
       'react/boolean-prop-naming': 'off',
@@ -300,6 +302,9 @@ const reactConfig = [
       'jsx-a11y/scope': 'error',
       'jsx-a11y/tabindex-no-positive': 'error',
     },
+
+    // react-refresh
+    'react-refresh/only-export-components': ['error', { allowConstantExport: true }],
   },
 ];
 
