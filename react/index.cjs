@@ -301,10 +301,10 @@ const reactConfig = [
       'jsx-a11y/role-supports-aria-props': 'error',
       'jsx-a11y/scope': 'error',
       'jsx-a11y/tabindex-no-positive': 'error',
-    },
 
-    // react-refresh
-    'react-refresh/only-export-components': ['error', { allowConstantExport: true }],
+      // react-refresh
+      'react-refresh/only-export-components': ['error', { allowConstantExport: true }],
+    },
   },
 ];
 
