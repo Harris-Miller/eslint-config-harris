@@ -16,8 +16,7 @@ module.exports = [
         },
         // always lint with `latest`, tsc will error on new syntax beyond target
         ecmaVersion: 'latest',
-        // https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/parser/README.md#configuration
-        project: './tsconfig.json',
+        project: true,
         warnOnUnsupportedTypeScriptVersion: false,
       },
     },
