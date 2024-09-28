@@ -8,6 +8,9 @@ const importConfig = {
   },
   // these are all from airbnb, going to turn them on as I find I need them
   settings: {
+    'import/parsers': {
+      '@typescript-eslint/parser': ['.ts', '.tsx'],
+    },
     'import/extensions': ['.ts', '.cts', '.mts', '.tsx', '.js', '.jsx'],
     'import/resolver': {
       // the typescript resolve is the best for all

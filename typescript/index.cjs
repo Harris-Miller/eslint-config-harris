@@ -128,6 +128,8 @@ module.exports = [
       '@typescript-eslint/prefer-destructuring': 'error',
       '@typescript-eslint/prefer-enum-initializers': 'off',
       '@typescript-eslint/prefer-find': 'error',
+      // for as little as I do traditional for-loops, I want no restrictions on them
+      '@typescript-eslint/prefer-for-of': 'off',
       '@typescript-eslint/prefer-readonly': 'off',
       // far too strict
       '@typescript-eslint/prefer-readonly-parameter-types': 'off',

@@ -1,4 +1,5 @@
 const eslint = require('@eslint/js');
+const onlyWarnPlugin = require('eslint-plugin-only-warn');
 
 const importConfig = require('./import.cjs');
 const personalConfig = require('./personal.cjs');
@@ -17,6 +18,9 @@ module.exports = [
     },
     linterOptions: {
       reportUnusedDisableDirectives: true,
+    },
+    plugins: {
+      'only-warn': onlyWarnPlugin,
     },
   },
   {
