@@ -108,8 +108,21 @@ module.exports = [
       '@typescript-eslint/no-shadow': 'error',
       '@typescript-eslint/no-unnecessary-qualifier': 'error',
       '@typescript-eslint/no-unsafe-unary-minus': 'error',
-      'no-unused-expressions': 'error',
+      'no-unused-expressions': 'off',
       '@typescript-eslint/no-unused-expressions': 'error',
+      'no-unused-vars': 'off',
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        {
+          args: 'all',
+          argsIgnorePattern: '^_',
+          caughtErrors: 'all',
+          caughtErrorsIgnorePattern: '^_',
+          destructuredArrayIgnorePattern: '^_',
+          varsIgnorePattern: '^_',
+          ignoreRestSiblings: true,
+        },
+      ],
       'no-use-before-define': 'off',
       '@typescript-eslint/no-use-before-define': 'error',
       // onyx has it like this, need to test if actually needed this way

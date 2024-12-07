@@ -67,8 +67,7 @@ const importConfig = {
     'import/max-dependencies': 'off',
     'import/newline-after-import': 'error',
     'import/no-anonymous-default-export': 'error',
-    // trying this on, as it's how I prefer it
-    'import/no-default-export': 'error',
+    'import/no-default-export': 'off',
     'import/no-duplicates': 'error',
     'import/no-named-default': 'error',
     'import/no-named-export': 'off',
