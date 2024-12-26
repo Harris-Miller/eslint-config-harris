@@ -14,6 +14,7 @@ const personalConfig = {
     'array-callback-return': ['error', { allowImplicit: true }],
     'no-await-in-loop': 'error',
     'no-constant-binary-expression': 'error',
+    'no-constant-condition': 'error',
     'no-constructor-return': 'error',
     // replaced by `import/no-duplicates`
     'no-duplicate-imports': 'off',

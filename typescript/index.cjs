@@ -106,6 +106,7 @@ module.exports = [
       '@typescript-eslint/no-restricted-imports': ['error', { paths: [] }],
       'no-shadow': 'off',
       '@typescript-eslint/no-shadow': 'error',
+      '@typescript-eslint/no-unnecessary-condition': ['error', { allowConstantLoopConditions: true }],
       '@typescript-eslint/no-unnecessary-qualifier': 'error',
       '@typescript-eslint/no-unsafe-unary-minus': 'error',
       'no-unused-expressions': 'off',
