@@ -282,7 +282,8 @@ const personalConfig = {
     // this is needed for `sort-keys-fix`
     // when a comment is on the same line, sort-keys-fix won't move the comment with the code
     // but if the comment is above, it will be moved
-    'line-comment-position': ['error', { position: 'above' }],
+    // UPDATE: too annoying, turning off
+    'line-comment-position': 'off', // ['error', { position: 'above' }]
     'unicode-bom': ['error', 'never'],
   },
 };
