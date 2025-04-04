@@ -2,7 +2,7 @@ const tsEslintPlugin = require('@typescript-eslint/eslint-plugin');
 const tsParser = require('@typescript-eslint/parser');
 const tsSortKeysPlugin = require('eslint-plugin-typescript-sort-keys');
 
-/** @type {import('eslint').Linter.FlatConfig[]} */
+/** @type {import('eslint').Linter.Config[]} */
 module.exports = [
   {
     name: 'harris/typescript',
@@ -100,7 +100,7 @@ module.exports = [
       // great idea, but far too strict
       '@typescript-eslint/no-magic-numbers': 'off',
       'no-redeclare': 'off',
-      '@typescript-eslint/no-redeclare': 'error',
+      '@typescript-eslint/no-redeclare': 'off', // typescript compiler handles this directly, not needed for .ts files
       '@typescript-eslint/no-require-imports': 'error',
       // nothing I currently want to restrict, but having it on and empty is good for future changes
       '@typescript-eslint/no-restricted-imports': ['error', { paths: [] }],

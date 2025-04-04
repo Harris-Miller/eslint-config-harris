@@ -1,6 +1,6 @@
 const preferArrowPlugin = require('eslint-plugin-prefer-arrow');
 
-/** @type {import('eslint').Linter.FlatConfig} */
+/** @type {import('eslint').Linter.Config} */
 const preferArrowConfig = {
   name: 'harris/preferArrow',
   plugins: {

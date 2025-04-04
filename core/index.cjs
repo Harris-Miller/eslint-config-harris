@@ -1,4 +1,4 @@
-const eslint = require('@eslint/js');
+const js = require('@eslint/js');
 const onlyWarnPlugin = require('eslint-plugin-only-warn');
 
 const importConfig = require('./import.cjs');
@@ -7,7 +7,7 @@ const preferArrowConfig = require('./preferArrow.cjs');
 const prettierConfig = require('./prettier.cjs');
 const sortKeysFixConfig = require('./sortKeys.cjs');
 
-/** @type {import('eslint').Linter.FlatConfig[]} */
+/** @type {import('eslint').Linter.Config[]} */
 module.exports = [
   {
     name: 'harris/core',
@@ -21,11 +21,9 @@ module.exports = [
     },
     plugins: {
       'only-warn': onlyWarnPlugin,
+      js,
     },
-  },
-  {
-    name: 'eslint/recommended',
-    ...eslint.configs.recommended,
+    extends: ['js/recommended'],
   },
   personalConfig,
   prettierConfig,

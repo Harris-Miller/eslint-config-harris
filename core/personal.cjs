@@ -4,7 +4,7 @@ const confusingBrowserGlobals = require('confusing-browser-globals');
  * Additional to eslint:recommended, by section
  */
 
-/** @type {import('eslint').Linter.FlatConfig} */
+/** @type {import('eslint').Linter.Config} */
 const personalConfig = {
   name: 'harris/personal',
   rules: {
@@ -112,6 +112,8 @@ const personalConfig = {
     // airbnb has this as 'error', but want to test this
     'no-plusplus': 'error',
     'no-proto': 'error',
+    // replaced by @typescript-eslint/no-redeclare
+    'no-redeclare': 'error',
     'no-restricted-exports': [
       'error',
       {
