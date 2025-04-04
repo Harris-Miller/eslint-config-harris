@@ -4,10 +4,7 @@ const sortKeysFixPlugin = require('eslint-plugin-sort-keys-fix');
 const sortKeysFixConfig = {
   name: 'harris/sortKeys',
   plugins: {
-    'sort-keys-fix': {
-      meta: sortKeysFixPlugin.meta,
-      rules: sortKeysFixPlugin.rules,
-    },
+    'sort-keys-fix': sortKeysFixPlugin,
   },
   rules: {
     'sort-keys': 'off',

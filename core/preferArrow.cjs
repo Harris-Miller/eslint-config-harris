@@ -4,10 +4,7 @@ const preferArrowPlugin = require('eslint-plugin-prefer-arrow');
 const preferArrowConfig = {
   name: 'harris/preferArrow',
   plugins: {
-    'prefer-arrow': {
-      meta: preferArrowPlugin.meta,
-      rules: preferArrowPlugin.rules,
-    },
+    'prefer-arrow': preferArrowPlugin,
   },
   rules: {
     'prefer-arrow/prefer-arrow-functions': [

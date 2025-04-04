@@ -1,6 +1,6 @@
 {
   "name": "eslint-config-harris",
-  "version": "5.0.0-beta.1",
+  "version": "5.0.0-beta.2",
   "description": "Harris' ESLint config",
   "repository": {
     "type": "git",
@@ -50,6 +50,7 @@
     "eslint-config-prettier": "^10.1.1",
     "eslint-import-resolver-typescript": "^4.3.1",
     "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-jest": "^28.11.0",
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "eslint-plugin-only-warn": "^1.1.0",
     "eslint-plugin-prefer-arrow": "^1.2.3",

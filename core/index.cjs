@@ -23,7 +23,7 @@ module.exports = [
       'only-warn': onlyWarnPlugin,
       js,
     },
-    extends: ['js/recommended'],
+    rules: js.configs.recommended.rules,
   },
   personalConfig,
   prettierConfig,

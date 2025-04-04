@@ -2,8 +2,8 @@ const eslintPluginPrettierRecommended = require('eslint-plugin-prettier/recommen
 
 /** @type {import('eslint').Linter.Config} */
 const prettierConfig = {
-  name: 'harris/prettier',
   ...eslintPluginPrettierRecommended,
+  name: 'harris/prettier',
   rules: {
     ...eslintPluginPrettierRecommended.rules,
     'prettier/prettier': [
