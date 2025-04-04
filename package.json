@@ -1,6 +1,6 @@
 {
   "name": "eslint-config-harris",
-  "version": "4.2.3",
+  "version": "5.0.0-beta.1",
   "description": "Harris' ESLint config",
   "repository": {
     "type": "git",
