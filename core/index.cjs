@@ -3,7 +3,6 @@ const onlyWarnPlugin = require('eslint-plugin-only-warn');
 
 const importConfig = require('./import.cjs');
 const personalConfig = require('./personal.cjs');
-const preferArrowConfig = require('./preferArrow.cjs');
 const prettierConfig = require('./prettier.cjs');
 const sortKeysFixConfig = require('./sortKeys.cjs');
 
@@ -29,5 +28,4 @@ module.exports = [
   prettierConfig,
   importConfig,
   sortKeysFixConfig,
-  preferArrowConfig,
 ];
