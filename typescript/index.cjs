@@ -99,7 +99,7 @@ module.exports = [
       '@typescript-eslint/no-loop-func': 'error',
       // great idea, but far too strict
       '@typescript-eslint/no-magic-numbers': 'off',
-      'no-misused-promises': ['error', { checksVoidReturn: false }],
+      '@typescript-eslint/no-misused-promises': ['error', { checksVoidReturn: false }],
       'no-redeclare': 'off',
       '@typescript-eslint/no-redeclare': 'off', // typescript compiler handles this directly, not needed for .ts files
       '@typescript-eslint/no-require-imports': 'error',
