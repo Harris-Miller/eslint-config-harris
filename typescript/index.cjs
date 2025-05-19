@@ -161,7 +161,7 @@ module.exports = [
       // might be too strict, but useful for enforcing `isNil` and `isNotNil`
       '@typescript-eslint/strict-boolean-expressions': 'error',
       // good rule, but might conflict with `switch(true)`. Need to test more
-      '@typescript-eslint/switch-exhaustiveness-check': 'error',
+      '@typescript-eslint/switch-exhaustiveness-check': ['error', { requireDefaultForNonUnion: true }],
       // this is probably far too strict, but I'd like to test it
       '@typescript-eslint/typedef': [
         'error',
