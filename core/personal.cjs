@@ -106,9 +106,7 @@ const personalConfig = {
     'no-new-wrappers': 'error',
     'no-object-constructor': 'error',
     'no-octal-escape': 'error',
-    // airbnb has some overrides for specific arg and prop names, want to test those a bit first
-    // onyx has `props: false`, I don't think I want that given my FP style and immutability
-    'no-param-reassign': ['error', { props: true }],
+    'no-param-reassign': ['error', { props: false }],
     // airbnb has this as 'error', but want to test this
     'no-plusplus': 'error',
     'no-proto': 'error',
@@ -226,7 +224,9 @@ const personalConfig = {
     'no-throw-literal': 'error',
     'no-undef-init': 'error',
     'no-undefined': 'off',
-    'no-underscore-dangle': 'error',
+    // this rule doesn't just apply for defining props, but also using them
+    // which is really annoying if code that is not mine uses leading _
+    'no-underscore-dangle': 'off',
     'no-unneeded-ternary': ['error', { defaultAssignment: false }],
     // replaced by @typescript-eslint/no-unused-expressions
     'no-unused-expressions': 'error',

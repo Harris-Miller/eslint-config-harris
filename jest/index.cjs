@@ -52,12 +52,4 @@ module.exports = [
       },
     ],
   },
-  {
-    name: 'harris/jest-ts',
-    files: ['**/*.test.ts', '**/*.spec.tsx'],
-    rules: {
-      // blanket off for test files
-      '@typescript-eslint/no-non-null-assertion': 'off',
-    },
-  },
 ];

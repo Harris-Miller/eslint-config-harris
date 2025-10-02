@@ -100,6 +100,8 @@ module.exports = [
       // great idea, but far too strict
       '@typescript-eslint/no-magic-numbers': 'off',
       '@typescript-eslint/no-misused-promises': ['error', { checksVoidReturn: false }],
+      // if I do use non-null-assertion, it's very intentional
+      '@typescript-eslint/no-non-null-assertion': 'off',
       'no-redeclare': 'off',
       '@typescript-eslint/no-redeclare': 'off', // typescript compiler handles this directly, not needed for .ts files
       '@typescript-eslint/no-require-imports': 'error',
