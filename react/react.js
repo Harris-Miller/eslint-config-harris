@@ -1,10 +1,10 @@
-const jsxA11yPlugin = require('eslint-plugin-jsx-a11y');
-const reactPlugin = require('eslint-plugin-react');
-const reactHooksPlugin = require('eslint-plugin-react-hooks');
-const reactRefreshPlugin = require('eslint-plugin-react-refresh');
+import { defineConfig } from 'eslint/config';
+import jsxA11yPlugin from 'eslint-plugin-jsx-a11y';
+import reactPlugin from 'eslint-plugin-react';
+import reactHooksPlugin from 'eslint-plugin-react-hooks';
+import reactRefreshPlugin from 'eslint-plugin-react-refresh';
 
-/** @type {import('eslint').Linter.Config[]} */
-const reactConfig = [
+const reactConfig = defineConfig([
   {
     name: 'harris/react',
     files: ['**/*.jsx', '**/*.tsx'],
@@ -23,6 +23,7 @@ const reactConfig = [
     plugins: {
       'jsx-a11y': jsxA11yPlugin,
       react: reactPlugin,
+      // @ts-expect-error
       'react-hooks': reactHooksPlugin,
       'react-refresh': reactRefreshPlugin,
     },
@@ -306,6 +307,6 @@ const reactConfig = [
       'react-refresh/only-export-components': ['error', { allowConstantExport: true }],
     },
   },
-];
+]);
 
-module.exports = reactConfig;
+export default reactConfig;

@@ -1,7 +1,7 @@
-const eslintPluginPrettierRecommended = require('eslint-plugin-prettier/recommended');
+import { defineConfig } from 'eslint/config';
+import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
 
-/** @type {import('eslint').Linter.Config} */
-const prettierConfig = {
+const prettierConfig = defineConfig({
   ...eslintPluginPrettierRecommended,
   name: 'harris/prettier',
   rules: {
@@ -36,6 +36,6 @@ const prettierConfig = {
       // },
     ],
   },
-};
+});
 
-module.exports = prettierConfig;
+export default prettierConfig;

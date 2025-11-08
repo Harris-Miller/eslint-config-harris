@@ -1,7 +1,7 @@
-const importPlugin = require('eslint-plugin-import');
+import { defineConfig } from 'eslint/config';
+import importPlugin from 'eslint-plugin-import';
 
-/** @type {import('eslint').Linter.Config} */
-const importConfig = {
+const importConfig = defineConfig({
   name: 'harris/import',
   plugins: {
     import: importPlugin,
@@ -11,7 +11,7 @@ const importConfig = {
     'import/parsers': {
       '@typescript-eslint/parser': ['.ts', '.tsx'],
     },
-    'import/extensions': ['.ts', '.cts', '.mts', '.tsx', '.js', '.jsx'],
+    'import/extensions': ['.ts', '.cts', '.mts', '.tsx', '.js', '.cjs', '.mjs', '.jsx'],
     'import/resolver': {
       // the typescript resolve is the best for all
       typescript: true,
@@ -61,7 +61,7 @@ const importConfig = {
     'import/consistent-type-specifier-style': ['error', 'prefer-top-level'],
     'import/dynamic-import-chunkname': 'off',
     'import/exports-last': 'off',
-    'import/extensions': ['error', { ignorePackages: true }],
+    'import/extensions': 'off',
     'import/first': 'error',
     'import/group-exports': 'off',
     'import/max-dependencies': 'off',
@@ -83,6 +83,6 @@ const importConfig = {
     ],
     'import/prefer-default-export': 'off',
   },
-};
+});
 
-module.exports = importConfig;
+export default importConfig;

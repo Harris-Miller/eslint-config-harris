@@ -1,9 +1,9 @@
-const tsEslintPlugin = require('@typescript-eslint/eslint-plugin');
-const tsParser = require('@typescript-eslint/parser');
-const tsSortKeysPlugin = require('eslint-plugin-typescript-sort-keys');
+import tsEslintPlugin from '@typescript-eslint/eslint-plugin';
+import tsParser from '@typescript-eslint/parser';
+import { defineConfig } from 'eslint/config';
+import tsSortKeysPlugin from 'eslint-plugin-typescript-sort-keys';
 
-/** @type {import('eslint').Linter.Config[]} */
-module.exports = [
+const typescriptConfig = defineConfig([
   {
     name: 'harris/typescript',
     files: ['**/*.ts', '**/*.mts', '**/*.tsx'],
@@ -25,8 +25,12 @@ module.exports = [
       'import/parsers': {
         '@typescript-eslint/parser': ['.ts', '.cts', '.mts', '.tsx'],
       },
+      'import/resolver': {
+        typescript: true,
+      },
     },
     plugins: {
+      // @ts-expect-error
       '@typescript-eslint': tsEslintPlugin,
       'typescript-sort-keys': tsSortKeysPlugin,
     },
@@ -182,4 +186,6 @@ module.exports = [
       'typescript-sort-keys/interface': ['error', 'asc', { caseSensitive: true, natural: false, requiredFirst: false }],
     },
   },
-];
+]);
+
+export default typescriptConfig;

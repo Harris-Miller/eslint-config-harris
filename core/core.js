@@ -1,13 +1,13 @@
-const js = require('@eslint/js');
-const onlyWarnPlugin = require('eslint-plugin-only-warn');
+import js from '@eslint/js';
+import { defineConfig } from 'eslint/config';
+import onlyWarnPlugin from 'eslint-plugin-only-warn';
 
-const importConfig = require('./import.cjs');
-const personalConfig = require('./personal.cjs');
-const prettierConfig = require('./prettier.cjs');
-const sortKeysFixConfig = require('./sortKeys.cjs');
+import importConfig from './import.js';
+import personalConfig from './personal.js';
+import prettierConfig from './prettier.js';
+import sortKeysFixConfig from './sortKeys.js';
 
-/** @type {import('eslint').Linter.Config[]} */
-module.exports = [
+const coreConfig = defineConfig([
   {
     name: 'harris/core',
     // apply to ALL, typescript specific rules will apply only to those extensions, etc
@@ -28,4 +28,6 @@ module.exports = [
   prettierConfig,
   importConfig,
   sortKeysFixConfig,
-];
+]);
+
+export default coreConfig;

@@ -1,11 +1,10 @@
-const confusingBrowserGlobals = require('confusing-browser-globals');
+import confusingBrowserGlobals from 'confusing-browser-globals';
+import { defineConfig } from 'eslint/config';
 
 /*
  * Additional to eslint:recommended, by section
  */
-
-/** @type {import('eslint').Linter.Config} */
-const personalConfig = {
+const personalConfig = defineConfig({
   name: 'harris/personal',
   rules: {
     //
@@ -123,6 +122,7 @@ const personalConfig = {
         ],
       },
     ],
+    // @ts-expect-error - this is a known false positive
     'no-restricted-globals': [
       'error',
       {
@@ -288,6 +288,6 @@ const personalConfig = {
     'line-comment-position': 'off', // ['error', { position: 'above' }]
     'unicode-bom': ['error', 'never'],
   },
-};
+});
 
-module.exports = personalConfig;
+export default personalConfig;
