@@ -1,6 +1,6 @@
 {
   "name": "eslint-config-harris",
-  "version": "5.0.0-beta.5",
+  "version": "5.0.0-beta.6",
   "type": "module",
   "description": "Harris' ESLint config",
   "repository": {
@@ -29,7 +29,8 @@
     "react",
     "typescript",
     "base.js",
-    "index.js"
+    "index.js",
+    "globals.js"
   ],
   "exports": {
     ".": "./index.js",
