@@ -1,6 +1,5 @@
 import js from '@eslint/js';
 import { defineConfig } from 'eslint/config';
-import onlyWarnPlugin from 'eslint-plugin-only-warn';
 
 import importConfig from './import.js';
 import personalConfig from './personal.js';
@@ -19,7 +18,6 @@ const coreConfig = defineConfig([
       reportUnusedDisableDirectives: true,
     },
     plugins: {
-      'only-warn': onlyWarnPlugin,
       js,
     },
     rules: js.configs.recommended.rules,

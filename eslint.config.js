@@ -9,7 +9,7 @@ const config = defineConfig([
   {
     name: 'repo/node',
     languageOptions: {
-      globals: globals.node,
+      globals: globals.nodeBuiltin,
     },
   },
   {
