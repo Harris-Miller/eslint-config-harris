@@ -41,8 +41,8 @@ const personalConfig = defineConfig({
     'block-scoped-var': 'error',
     // replaced by `@typescript-eslint/naming-convention`
     camelcase: 'off',
-    // airbnb has this set to 20, want to test a bit
-    complexity: ['error', 10],
+    // this rule is honestly just more annoying that useful
+    complexity: 'off',
     // replaced by `@typescript-eslint/consistent-return`
     'consistent-return': 'error',
     'consistent-this': 'error',

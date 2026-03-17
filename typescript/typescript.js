@@ -69,10 +69,12 @@ const typescriptConfig = defineConfig([
           // variables, PascalCase is here for React Function Components, as arrow function fall under variable
           selector: 'variable',
           format: ['camelCase', 'UPPER_CASE', 'PascalCase'],
+          leadingUnderscore: 'allowSingleOrDouble',
         },
         {
           selector: 'function',
           format: ['camelCase', 'PascalCase'],
+          leadingUnderscore: 'allowSingleOrDouble',
         },
         {
           selector: 'class',
