@@ -46,7 +46,8 @@ const importConfig = defineConfig({
     // this one
     'import/namespace': 'off',
     'import/no-absolute-path': 'error',
-    'import/no-cycle': ['error', { maxDepth: '∞' }],
+    // this rule is very expensive, better to quality gate via your bundler
+    'import/no-cycle': 'off',
     'import/no-dynamic-require': 'error',
     'import/no-internal-modules': 'off',
     'import/no-relative-packages': 'error',
