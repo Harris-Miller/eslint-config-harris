@@ -1,12 +1,11 @@
 import tsEslintPlugin from '@typescript-eslint/eslint-plugin';
 import tsParser from '@typescript-eslint/parser';
 import { defineConfig } from 'eslint/config';
-import tsSortKeysPlugin from 'eslint-plugin-typescript-sort-keys';
 
 const typescriptConfig = defineConfig([
   {
     name: 'harris/typescript',
-    files: ['**/*.ts', '**/*.mts', '**/*.tsx'],
+    files: ['**/*.{ts,mts,cts,tsx}'],
     languageOptions: {
       parser: tsParser,
       parserOptions: {
@@ -20,23 +19,14 @@ const typescriptConfig = defineConfig([
         warnOnUnsupportedTypeScriptVersion: false,
       },
     },
-    settings: {
-      'import/external-module-folders': ['node_modules', 'node_modules/@types'],
-      'import/parsers': {
-        '@typescript-eslint/parser': ['.ts', '.cts', '.mts', '.tsx'],
-      },
-      'import/resolver': {
-        typescript: true,
-      },
-    },
     plugins: {
       // @ts-expect-error
       '@typescript-eslint': tsEslintPlugin,
-      'typescript-sort-keys': tsSortKeysPlugin,
+      // 'typescript-sort-keys': tsSortKeysPlugin,
     },
     rules: {
       // specifically turn this off for typescript, extensions are unwanted there. compiler adds in correct js extension
-      'import/extensions': 'off',
+      'import-x/extensions': 'off',
       ...tsEslintPlugin.configs['recommended-type-checked'].rules,
       ...tsEslintPlugin.configs['stylistic-type-checked'].rules,
       ...tsEslintPlugin.configs['strict-type-checked'].rules,
@@ -53,11 +43,10 @@ const typescriptConfig = defineConfig([
       ],
       'default-param-last': 'off',
       '@typescript-eslint/default-param-last': 'error',
-      // @typescript-eslint/explicit-module-boundary-types is better
       '@typescript-eslint/explicit-function-return-type': 'off',
       '@typescript-eslint/explicit-member-accessibility': 'off',
-      // this is generally useful, but strict, not appropriate for all projects, turn off as needed
-      '@typescript-eslint/explicit-module-boundary-types': 'error',
+      // I tried having this on by default before, it's too strict and doesn't work well with exporting types from libs that are highly dynamic
+      '@typescript-eslint/explicit-module-boundary-types': 'off',
       'init-declarations': 'off',
       '@typescript-eslint/init-declarations': ['off', 'always'],
       '@typescript-eslint/max-params': 'off',
@@ -106,7 +95,7 @@ const typescriptConfig = defineConfig([
       // great idea, but far too strict
       '@typescript-eslint/no-magic-numbers': 'off',
       '@typescript-eslint/no-misused-promises': ['error', { checksVoidReturn: false }],
-      // if I do use non-null-assertion, it's very intentional
+      // if I do use non-null-assertion, it's very intentional, so I'm not going to bother to enforce it
       '@typescript-eslint/no-non-null-assertion': 'off',
       'no-redeclare': 'off',
       '@typescript-eslint/no-redeclare': 'off', // typescript compiler handles this directly, not needed for .ts files
@@ -163,29 +152,13 @@ const typescriptConfig = defineConfig([
       // no, sometimes you want to direct sort, stupid to force
       '@typescript-eslint/require-array-sort-compare': 'off',
       '@typescript-eslint/restrict-template-expressions': ['error', { allowNumber: true }],
-      // core rule deprecated
-      '@typescript-eslint/return-await': 'off',
-      '@typescript-eslint/sort-type-constituents': 'error',
+      // core rule deprecated and I have it 'off' in previous major
+      // but typescript-eslint has better reasoning for it with type information, so going to test with it on
+      '@typescript-eslint/return-await': ['error', 'always' /* alternative: 'in-try-catch' */],
       // might be too strict, but useful for enforcing `isNil` and `isNotNil`
       '@typescript-eslint/strict-boolean-expressions': 'error',
       // good rule, but might conflict with `switch(true)`. Need to test more
       '@typescript-eslint/switch-exhaustiveness-check': ['error', { requireDefaultForNonUnion: true }],
-      // this is probably far too strict, but I'd like to test it
-      '@typescript-eslint/typedef': [
-        'error',
-        {
-          arrayDestructuring: false,
-          arrowParameter: false,
-          memberVariableDeclaration: false,
-          objectDestructuring: false,
-          parameter: false,
-          propertyDeclaration: false,
-          variableDeclaration: false,
-          variableDeclarationIgnoreFunction: false,
-        },
-      ],
-      // typescript-sort-keys
-      'typescript-sort-keys/interface': ['error', 'asc', { caseSensitive: true, natural: false, requiredFirst: false }],
     },
   },
 ]);

@@ -1,5 +1,6 @@
+import reactConfig from '../rules/react.js';
+
 import baseConfig from './base.js';
-import reactConfig from './react/react.js';
 
 const eslintConfig = [...baseConfig, ...reactConfig];
 

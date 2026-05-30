@@ -1,11 +1,15 @@
 import { defineConfig } from 'eslint/config';
-import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
+import eslintPrettier from 'eslint-plugin-prettier/recommended';
+
+import { ALL_FILES } from './rules.constants.js';
 
 const prettierConfig = defineConfig({
-  ...eslintPluginPrettierRecommended,
   name: 'harris/prettier',
+  files: [ALL_FILES],
+  plugins: eslintPrettier.plugins,
   rules: {
-    ...eslintPluginPrettierRecommended.rules,
+    // their recommended rules _disables_ the eslint rules that it handles itself
+    ...eslintPrettier.rules,
     'prettier/prettier': [
       'error',
       {

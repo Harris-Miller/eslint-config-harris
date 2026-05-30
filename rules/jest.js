@@ -4,7 +4,7 @@ import pluginJest from 'eslint-plugin-jest';
 const jestConfig = defineConfig([
   {
     name: 'harris/jest',
-    files: ['**/*.test.*', '**/*spec.*'],
+    files: ['**/*.test.*', '**/*.spec.*'],
     plugins: { jest: pluginJest },
     languageOptions: {
       globals: pluginJest.environments.globals.globals,

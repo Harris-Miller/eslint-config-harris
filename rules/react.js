@@ -7,7 +7,8 @@ import reactRefreshPlugin from 'eslint-plugin-react-refresh';
 const reactConfig = defineConfig([
   {
     name: 'harris/react',
-    files: ['**/*.jsx', '**/*.tsx'],
+    // only apply to react files
+    files: ['**/*.{jsx,tsx}'],
     languageOptions: {
       parserOptions: {
         ecmaFeatures: {

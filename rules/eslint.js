@@ -1,35 +1,44 @@
+import js from '@eslint/js';
 import confusingBrowserGlobals from 'confusing-browser-globals';
 import { defineConfig } from 'eslint/config';
+
+import { ALL_FILES } from './rules.constants.js';
 
 /*
  * Additional to eslint:recommended, by section
  */
 const personalConfig = defineConfig({
-  name: 'harris/personal',
+  name: 'harris/eslint',
+  files: [ALL_FILES],
+  languageOptions: {
+    ecmaVersion: 'latest',
+  },
+  linterOptions: {
+    reportUnusedDisableDirectives: true,
+  },
+  plugins: {
+    js,
+  },
   rules: {
+    ...js.configs.recommended.rules,
     //
     // problems
     //
     'array-callback-return': ['error', { allowImplicit: true }],
     'no-await-in-loop': 'error',
-    'no-constant-binary-expression': 'error',
-    'no-constant-condition': 'error',
     'no-constructor-return': 'error',
     // replaced by `import/no-duplicates`
     'no-duplicate-imports': 'off',
-    'no-new-native-nonconstructor': 'error',
     'no-promise-executor-return': 'error',
     'no-self-compare': 'error',
     'no-template-curly-in-string': 'error',
     // keep this off to allow `while(arr.length)`
     'no-unmodified-loop-condition': 'off',
     'no-unreachable-loop': 'error',
-    'no-unused-private-class-members': 'error',
-    // replaced by @typescript-eslint/no-use-before-define
     'no-use-before-define': 'error',
+    // why is this off?
     // may want to keep `allowNamedExports: false`
     // 'no-use-before-define': ['error', { functions: true, classes: true, variables: true, allowNamedExports: false }],
-    // eslint-config-airbnb claims this one is buggy, so be on the lookout for issues
     'require-atomic-updates': 'error',
 
     //
@@ -43,13 +52,11 @@ const personalConfig = defineConfig({
     camelcase: 'off',
     // this rule is honestly just more annoying that useful
     complexity: 'off',
-    // replaced by `@typescript-eslint/consistent-return`
     'consistent-return': 'error',
     'consistent-this': 'error',
     curly: ['error', 'multi-line'],
     'default-case': 'error',
     'default-case-last': 'error',
-    // replaced by `@typescript-eslint/default-param-last`
     'default-param-last': 'error',
     'dot-notation': 'error',
     // `{ null: 'ignore' }` because `x == null` checks both `null` and `undefined`
@@ -58,7 +65,6 @@ const personalConfig = defineConfig({
     'func-style': ['error', 'expression', { allowArrowFunctions: true }],
     'grouped-accessor-pairs': 'error',
     'guard-for-in': 'error',
-    // replaced by `@typescript-eslint/init-declarations`
     'init-declarations': ['off', 'always'],
     'logical-assignment-operators': ['error', 'always', { enforceForIfStatements: true }],
     'max-classes-per-file': ['error', 1],
@@ -72,14 +78,12 @@ const personalConfig = defineConfig({
     'no-continue': 'error',
     'no-div-regex': 'off',
     'no-else-return': ['error', { allowElseIf: false }],
-    // replaced by @typescript-eslint/no-empty-function
     'no-empty-function': [
       'error',
       {
         allow: ['arrowFunctions'],
       },
     ],
-    'no-empty-static-block': 'error',
     // ok because because `x == null` checks both `null` and `undefined`
     'no-eq-null': 'off',
     'no-eval': 'error',
@@ -89,14 +93,13 @@ const personalConfig = defineConfig({
     'no-implicit-coercion': 'error',
     'no-implicit-globals': 'off',
     'no-implied-eval': 'error',
-    // replaced by @typescript-eslint/no-invalid-this
     'no-invalid-this': 'error',
     'no-iterator': 'error',
     'no-label-var': 'error',
     'no-labels': 'error',
     'no-lone-blocks': 'error',
     'no-lonely-if': 'error',
-    // replaced by @typescript-eslint/no-loop-func
+
     'no-loop-func': 'error',
     'no-multi-assign': 'error',
     'no-multi-str': 'error',
@@ -106,11 +109,8 @@ const personalConfig = defineConfig({
     'no-object-constructor': 'error',
     'no-octal-escape': 'error',
     'no-param-reassign': ['error', { props: false }],
-    // airbnb has this as 'error', but want to test this
     'no-plusplus': 'error',
     'no-proto': 'error',
-    // replaced by @typescript-eslint/no-redeclare
-    'no-redeclare': 'error',
     'no-restricted-exports': [
       'error',
       {
@@ -213,13 +213,12 @@ const personalConfig = defineConfig({
       },
       {
         selector: 'TSEnumDeclaration',
-        message: "Don't declare enums, use union types instead. See README for more details",
+        message: "Don't declare enums. Use union types instead.",
       },
     ],
     'no-return-assign': ['error', 'always'],
     'no-script-url': 'error',
     'no-sequences': 'error',
-    // replaced by @typescript-eslint/no-shadow
     'no-shadow': 'error',
     'no-throw-literal': 'error',
     'no-undef-init': 'error',
@@ -228,14 +227,10 @@ const personalConfig = defineConfig({
     // which is really annoying if code that is not mine uses leading _
     'no-underscore-dangle': 'off',
     'no-unneeded-ternary': ['error', { defaultAssignment: false }],
-    // replaced by @typescript-eslint/no-unused-expressions
     'no-unused-expressions': 'error',
-    'no-unused-labels': 'error',
-    // airbnb has this off, but I think it should be on, testing
     'no-useless-call': 'error',
     'no-useless-computed-key': 'error',
     'no-useless-concat': 'error',
-    // replaced by @typescript-eslint/no-useless-constructor
     'no-useless-constructor': 'error',
     'no-useless-rename': 'error',
     'no-useless-return': 'error',
@@ -247,7 +242,6 @@ const personalConfig = defineConfig({
     // off for `prettier`
     'prefer-arrow-callback': 'off',
     'prefer-const': ['error', { ignoreReadBeforeAssign: true }],
-    // replaced by @typescript-eslint/prefer-destructuring
     'prefer-destructuring': 'error',
     'prefer-exponentiation-operator': 'error',
     'prefer-numeric-literals': 'error',
@@ -270,8 +264,8 @@ const personalConfig = defineConfig({
         allowSeparatedGroups: true,
       },
     ],
-    // replaced by sort-keys-fix/sort-keys-fix
-    'sort-keys': 'error',
+    // replaced by `perfectionist/sort-objects`
+    'sort-keys': 'off',
     strict: ['error', 'never'],
     'symbol-description': 'error',
     'vars-on-top': 'error',
@@ -281,11 +275,7 @@ const personalConfig = defineConfig({
     // layout and formatting
     //
 
-    // this is needed for `sort-keys-fix`
-    // when a comment is on the same line, sort-keys-fix won't move the comment with the code
-    // but if the comment is above, it will be moved
-    // UPDATE: too annoying, turning off
-    'line-comment-position': 'off', // ['error', { position: 'above' }]
+    'line-comment-position': 'off',
     'unicode-bom': ['error', 'never'],
   },
 });
