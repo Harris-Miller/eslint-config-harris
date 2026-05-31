@@ -1,6 +1,6 @@
 {
   "name": "eslint-config-harris",
-  "version": "6.0.0-beta.1",
+  "version": "6.0.0-beta.2",
   "type": "module",
   "description": "Harris' ESLint config",
   "packageManager": "pnpm@10.30.1",
@@ -32,7 +32,6 @@
   "exports": {
     ".": "./configs/index.js",
     "./base": "./configs/base.js",
-    "./jest": "./configs/jest.js",
     "./vitest": "./configs/vitest.js",
     "./vanilla": "./configs/vanilla.js",
     "./globals": "./globals.js",
@@ -46,6 +45,7 @@
     "@eslint/js": "^9.39.4",
     "@typescript-eslint/eslint-plugin": "^8.60.0",
     "@typescript-eslint/parser": "^8.60.0",
+    "@vitest/eslint-plugin": "^1.6.18",
     "confusing-browser-globals": "^1.0.11",
     "eslint-config-prettier": "^10.1.8",
     "eslint-import-resolver-typescript": "^4.4.4",
@@ -63,6 +63,8 @@
     "prettier": "^3.8.3"
   },
   "devDependencies": {
+    "@types/confusing-browser-globals": "^1.0.3",
+    "@types/eslint-plugin-jsx-a11y": "^6.10.1",
     "eslint": "^9.39.4",
     "typescript": "^6.0.3"
   },

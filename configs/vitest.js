@@ -1,9 +1,5 @@
-import { defineConfig } from 'eslint/config';
+import vitestRules from '../rules/vitest.js';
 
-const coreConfig = defineConfig([
-  {
-    name: 'harris/vitest',
-  },
-]);
+const vitestConfig = [...vitestRules];
 
-export default coreConfig;
+export default vitestConfig;

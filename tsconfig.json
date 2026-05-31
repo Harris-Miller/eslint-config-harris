@@ -1,13 +1,14 @@
 {
   "compilerOptions": {
     "skipLibCheck": true,
-    "target": "ES2022",
+    "target": "ES2024",
     "module": "nodenext",
     "checkJs": true,
     "noEmit": true
   },
   "include": [
-    "."
+    "*.js",
+    "rules/**/*.js"
   ],
   "exclude": [
     "node_modules"
