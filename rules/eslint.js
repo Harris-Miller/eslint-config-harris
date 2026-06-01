@@ -122,7 +122,6 @@ const personalConfig = defineConfig({
         ],
       },
     ],
-    // @ts-expect-error - this is a known false positive
     'no-restricted-globals': [
       'error',
       {
@@ -142,14 +141,13 @@ const personalConfig = defineConfig({
         message: 'Use Number.parseFloat instead',
       },
       // now add all confusingBrowserGlobals, but not `self`, since that's needed for WebWorkers
-    ].concat(
-      confusingBrowserGlobals
+      ...confusingBrowserGlobals
         .filter(g => g !== 'self')
         .map(g => ({
           name: g,
           message: `Use window.${g} instead`,
         })),
-    ),
+    ],
     'no-restricted-properties': [
       'error',
       {

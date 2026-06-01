@@ -157,6 +157,8 @@ const typescriptConfig = defineConfig([
       '@typescript-eslint/return-await': ['error', 'always' /* alternative: 'in-try-catch' */],
       // might be too strict, but useful for enforcing `isNil` and `isNotNil`
       '@typescript-eslint/strict-boolean-expressions': 'error',
+      // this conflicts with switch-exhaustiveness-check rule below
+      'default-case': 'off',
       // good rule, but might conflict with `switch(true)`. Need to test more
       '@typescript-eslint/switch-exhaustiveness-check': ['error', { requireDefaultForNonUnion: true }],
     },
