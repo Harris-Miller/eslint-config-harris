@@ -20,9 +20,8 @@ const typescriptConfig = defineConfig([
       },
     },
     plugins: {
-      // @ts-expect-error
+      // @ts-expect-error - this is a valid plugin and shouldn't error. TODO: figure out why
       '@typescript-eslint': tsEslintPlugin,
-      // 'typescript-sort-keys': tsSortKeysPlugin,
     },
     rules: {
       // specifically turn this off for typescript, extensions are unwanted there. compiler adds in correct js extension
